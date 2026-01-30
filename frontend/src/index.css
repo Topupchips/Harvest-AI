@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+@theme {
+  --color-neon: #00D4FF;
+  --color-neon-dim: #0099BB;
+  --color-dark-900: #0a0a0f;
+  --color-dark-800: #12121a;
+  --color-dark-700: #1a1a2e;
+  --color-dark-600: #252540;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: var(--color-dark-900);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}

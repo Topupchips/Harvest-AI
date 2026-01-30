@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GeoMarble</title>
+    <!--
+      WebGL preserveDrawingBuffer patch for canvas capture.
+      Re-enable if canvas screenshots come back blank.
+    -->
+    <script>
+      (function () {
+        var origGetContext = HTMLCanvasElement.prototype.getContext;
+        HTMLCanvasElement.prototype.getContext = function (type, attrs) {
+          if (type === 'webgl' || type === 'webgl2' || type === 'experimental-webgl') {
+            attrs = Object.assign({}, attrs, { preserveDrawingBuffer: true });
+          }
+          return origGetContext.call(this, type, attrs);
+        };
+      })();
+    </script>
+  </head>
+  <body class="m-0 p-0 overflow-hidden">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
