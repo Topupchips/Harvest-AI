@@ -165,3 +165,65 @@ class WorldLabsClient:
             f"Operation {operation_id} did not complete within "
             f"{max_attempts * interval}s"
         )
+
+    async def generate_world_multi(
+        self,
+        images: list[tuple[bytes, str, int | float]],
+        text_prompt: str | None = None,
+    ) -> str:
+        """
+        Initiate world generation from multiple images with azimuth values.
+
+        Args:
+            images: List of (image_bytes, filename, azimuth) tuples.
+                    Azimuth is the viewing angle in degrees (0-360).
+            text_prompt: Optional text description for the world.
+
+        Returns:
+            The operation_id for polling.
+        """
+        if not images:
+            raise ValueError("At least one image is required")
+
+        # Upload all images and build the multi_image_prompt array
+        multi_image_prompt = []
+        for image_bytes, filename, azimuth in images:
+            media_asset_id = await self.upload_image(image_bytes, filename)
+            logger.info(f"Uploaded image {filename} with azimuth={azimuth}, media_asset_id={media_asset_id}")
+            multi_image_prompt.append({
+                "azimuth": azimuth,
+                "content": {
+                    "source": "media_asset",
+                    "media_asset_id": media_asset_id,
+                },
+            })
+
+        body = {
+            "display_name": "GeoMarble Multi-Image World",
+            "model": "Marble 0.1-mini",
+            "permission": {
+                "public": True
+            },
+            "world_prompt": {
+                "type": "multi-image",
+                "multi_image_prompt": multi_image_prompt,
+            },
+        }
+
+        if text_prompt:
+            body["world_prompt"]["text_prompt"] = text_prompt
+
+        async with httpx.AsyncClient(timeout=30.0) as client:
+            resp = await client.post(
+                f"{WORLDLABS_BASE_URL}/worlds:generate",
+                headers=self.headers,
+                json=body,
+            )
+            logger.info(f"generate_multi status={resp.status_code}")
+            if resp.status_code >= 400:
+                logger.error(f"generate_multi failed: {resp.text}")
+            resp.raise_for_status()
+            data = resp.json()
+            logger.info(f"generate_multi response: {data}")
+
+        return data["operation_id"]
