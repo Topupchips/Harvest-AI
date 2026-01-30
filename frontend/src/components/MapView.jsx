@@ -34,9 +34,10 @@ function loadGoogleMapsScript(apiKey) {
   });
 }
 
-const MapView = forwardRef((_props, ref) => {
+const MapView = forwardRef(({ onLocationClick }, ref) => {
   const wrapperRef = useRef(null);
   const mapHostRef = useRef(null);
+  const mapElementRef = useRef(null);
   const [status, setStatus] = useState('Initializing...');
   const [hasError, setHasError] = useState(false);
 
@@ -70,7 +71,20 @@ const MapView = forwardRef((_props, ref) => {
       map3d.style.height = '100%';
       map3d.style.display = 'block';
 
+      // Add click event listener for location selection
+      map3d.addEventListener('gmp-click', (event) => {
+        const { position } = event.detail;
+        if (position && onLocationClick) {
+          onLocationClick({
+            lat: position.lat,
+            lng: position.lng,
+            altitude: position.altitude || 0,
+          });
+        }
+      });
+
       mapHost.appendChild(map3d);
+      mapElementRef.current = map3d;
       setStatus('');
     }
 
@@ -85,8 +99,9 @@ const MapView = forwardRef((_props, ref) => {
       while (mapHost.firstChild) {
         mapHost.removeChild(mapHost.firstChild);
       }
+      mapElementRef.current = null;
     };
-  }, []);
+  }, [onLocationClick]);
 
   return (
     <div ref={wrapperRef} className="absolute inset-0 w-full h-full" style={{ zIndex: 0 }}>
