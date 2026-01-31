@@ -71,20 +71,30 @@ const MapView = forwardRef(({ onLocationClick }, ref) => {
       map3d.style.height = '100%';
       map3d.style.display = 'block';
 
-      // Add click event listener for location selection
+      // Append to DOM first
+      mapHost.appendChild(map3d);
+      mapElementRef.current = map3d;
+
+      // Add click event listener after element is in DOM
       map3d.addEventListener('gmp-click', (event) => {
-        const { position } = event.detail;
+        console.log('[MapView] gmp-click event:', event);
+
+        // Position is directly on the event object, not in event.detail
+        const position = event.position;
         if (position && onLocationClick) {
-          onLocationClick({
-            lat: position.lat,
-            lng: position.lng,
-            altitude: position.altitude || 0,
-          });
+          // Google Maps 3D position can be a LatLngAltitude object with methods
+          // or have minified property names - handle both cases
+          const lat = typeof position.lat === 'function' ? position.lat() : position.lat;
+          const lng = typeof position.lng === 'function' ? position.lng() : position.lng;
+          const altitude = position.altitude || 0;
+
+          console.log('[MapView] Extracted coordinates:', { lat, lng, altitude });
+          onLocationClick({ lat, lng, altitude });
+        } else {
+          console.warn('[MapView] No position in click event - user may have clicked on sky or unsupported area');
         }
       });
 
-      mapHost.appendChild(map3d);
-      mapElementRef.current = map3d;
       setStatus('');
     }
 

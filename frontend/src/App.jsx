@@ -23,35 +23,77 @@ export default function App() {
   const mapRef = useRef(null);
 
   /**
-   * Capture multiple satellite images at different headings (azimuths) for a location.
+   * Capture a single satellite image for a location.
    * @param {number} lat - Latitude
    * @param {number} lng - Longitude
+   * @returns {Promise<Blob>}
+   */
+  const captureSatelliteImage = useCallback(async (lat, lng) => {
+    const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+    const staticUrl =
+      `https://maps.googleapis.com/maps/api/staticmap?` +
+      `center=${lat},${lng}&zoom=18&size=1024x1024` +
+      `&maptype=satellite&key=${apiKey}`;
+
+    console.log(`[Capture] Fetching satellite view for ${lat}, ${lng}`);
+    const response = await fetch(staticUrl);
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch satellite image`);
+    }
+
+    const blob = await response.blob();
+    console.log(`[Capture] Got satellite image, size:`, blob.size);
+
+    return blob;
+  }, []);
+
+  /**
+   * Capture multiple satellite images from offset positions around a location.
+   * Since Static Maps doesn't support heading for satellite, we offset the center
+   * to capture different perspectives for World Labs multi-image generation.
+   * @param {number} lat - Center latitude
+   * @param {number} lng - Center longitude
    * @returns {Promise<Array<{blob: Blob, azimuth: number}>>}
    */
   const captureMultipleViews = useCallback(async (lat, lng) => {
     const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
-    const headings = [0, 90, 180, 270];
+
+    // Offset distance in degrees (~100 meters at equator)
+    const offset = 0.001;
+
+    // Define views: direction name, azimuth, lat offset, lng offset
+    const views = [
+      { name: 'North', azimuth: 0, latOff: offset, lngOff: 0 },
+      { name: 'East', azimuth: 90, latOff: 0, lngOff: offset },
+      { name: 'South', azimuth: 180, latOff: -offset, lngOff: 0 },
+      { name: 'West', azimuth: 270, latOff: 0, lngOff: -offset },
+    ];
+
     const results = [];
 
-    for (const heading of headings) {
+    for (const view of views) {
+      const viewLat = lat + view.latOff;
+      const viewLng = lng + view.lngOff;
+
       const staticUrl =
         `https://maps.googleapis.com/maps/api/staticmap?` +
-        `center=${lat},${lng}&zoom=18&size=1024x1024` +
+        `center=${viewLat},${viewLng}&zoom=18&size=1024x1024` +
         `&maptype=satellite&key=${apiKey}`;
 
-      console.log(`[Capture] Fetching satellite view at heading ${heading}`);
+      console.log(`[Capture] Fetching ${view.name} view (azimuth ${view.azimuth}) at ${viewLat}, ${viewLng}`);
       const response = await fetch(staticUrl);
 
       if (!response.ok) {
-        throw new Error(`Failed to fetch satellite image at heading ${heading}`);
+        throw new Error(`Failed to fetch satellite image for ${view.name} view`);
       }
 
       const blob = await response.blob();
-      console.log(`[Capture] Got satellite image at heading ${heading}, size:`, blob.size);
+      console.log(`[Capture] Got ${view.name} view, size:`, blob.size);
 
       results.push({
         blob,
-        azimuth: heading,
+        azimuth: view.azimuth,
       });
     }
 
@@ -85,10 +127,10 @@ export default function App() {
 
     try {
       setAppState(APP_STATE.GENERATING);
-      setStatusText('Capturing satellite views...');
+      setStatusText('Capturing satellite images...');
       setError(null);
 
-      // Capture 4 satellite images at different headings
+      // Capture 4 satellite images from offset positions
       const images = await captureMultipleViews(selectedLocation.lat, selectedLocation.lng);
 
       // Generate description for the location
@@ -97,7 +139,7 @@ export default function App() {
         selectedLocation.address
       );
 
-      setStatusText('Sending to World Labs...');
+      setStatusText('Generating 3D world...');
       const result = await generateWorldMulti(images, textPrompt, (status) => {
         setStatusText(status);
       });

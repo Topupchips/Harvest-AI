@@ -213,6 +213,8 @@ class WorldLabsClient:
         if text_prompt:
             body["world_prompt"]["text_prompt"] = text_prompt
 
+        logger.info(f"generate_multi request body: {body}")
+
         async with httpx.AsyncClient(timeout=30.0) as client:
             resp = await client.post(
                 f"{WORLDLABS_BASE_URL}/worlds:generate",
