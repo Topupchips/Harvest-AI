@@ -17,7 +17,7 @@ export async function generateWorld(imageBlob, onStatusUpdate) {
 
   const { data } = await axios.post(`${API_BASE}/generate-world`, formData, {
     headers: { 'Content-Type': 'multipart/form-data' },
-    timeout: 180000, // 3-minute timeout for the full server-side flow
+    timeout: 600000, // 10-minute timeout for Marble 0.1-plus generation
   });
 
   if (data.viewer_url) {
@@ -60,7 +60,7 @@ export async function generateWorldMulti(images, textPrompt, onStatusUpdate) {
 
   const { data } = await axios.post(`${API_BASE}/generate-world-multi`, formData, {
     headers: { 'Content-Type': 'multipart/form-data' },
-    timeout: 300000, // 5-minute timeout for multi-image processing
+    timeout: 600000, // 10-minute timeout for Marble 0.1-plus generation
   });
 
   if (data.viewer_url) {

@@ -49,9 +49,8 @@ export default function App() {
   }, []);
 
   /**
-   * Capture multiple satellite images from offset positions around a location.
-   * Since Static Maps doesn't support heading for satellite, we offset the center
-   * to capture different perspectives for World Labs multi-image generation.
+   * Capture multiple Street View images at different headings from a location.
+   * Uses Google Street View Static API for ground-level panoramic views.
    * @param {number} lat - Center latitude
    * @param {number} lng - Center longitude
    * @returns {Promise<Array<{blob: Blob, azimuth: number}>>}
@@ -59,37 +58,42 @@ export default function App() {
   const captureMultipleViews = useCallback(async (lat, lng) => {
     const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
-    // Offset distance in degrees (~100 meters at equator)
-    const offset = 0.001;
-
-    // Define views: direction name, azimuth, lat offset, lng offset
+    // Capture 4 Street View images at cardinal directions
     const views = [
-      { name: 'North', azimuth: 0, latOff: offset, lngOff: 0 },
-      { name: 'East', azimuth: 90, latOff: 0, lngOff: offset },
-      { name: 'South', azimuth: 180, latOff: -offset, lngOff: 0 },
-      { name: 'West', azimuth: 270, latOff: 0, lngOff: -offset },
+      { name: 'North', heading: 0, azimuth: 0 },
+      { name: 'East', heading: 90, azimuth: 90 },
+      { name: 'South', heading: 180, azimuth: 180 },
+      { name: 'West', heading: 270, azimuth: 270 },
     ];
 
     const results = [];
 
     for (const view of views) {
-      const viewLat = lat + view.latOff;
-      const viewLng = lng + view.lngOff;
+      // Street View Static API with heading parameter
+      const streetViewUrl =
+        `https://maps.googleapis.com/maps/api/streetview?` +
+        `location=${lat},${lng}` +
+        `&size=1024x1024` +
+        `&heading=${view.heading}` +
+        `&pitch=0` +  // Horizontal view (0 = level, negative = down, positive = up)
+        `&fov=90` +   // Field of view (90° is good for capturing surroundings)
+        `&key=${apiKey}`;
 
-      const staticUrl =
-        `https://maps.googleapis.com/maps/api/staticmap?` +
-        `center=${viewLat},${viewLng}&zoom=18&size=1024x1024` +
-        `&maptype=satellite&key=${apiKey}`;
-
-      console.log(`[Capture] Fetching ${view.name} view (azimuth ${view.azimuth}) at ${viewLat}, ${viewLng}`);
-      const response = await fetch(staticUrl);
+      console.log(`[Capture] Fetching Street View ${view.name} (heading ${view.heading}) at ${lat}, ${lng}`);
+      const response = await fetch(streetViewUrl);
 
       if (!response.ok) {
-        throw new Error(`Failed to fetch satellite image for ${view.name} view`);
+        throw new Error(`Failed to fetch Street View for ${view.name} direction`);
       }
 
       const blob = await response.blob();
-      console.log(`[Capture] Got ${view.name} view, size:`, blob.size);
+      console.log(`[Capture] Got ${view.name} Street View, size:`, blob.size);
+
+      // Check if we got a valid image (Street View returns a "no imagery" placeholder if unavailable)
+      // The placeholder is typically very small (~8KB) compared to real imagery (~50-200KB)
+      if (blob.size < 10000) {
+        throw new Error(`Street View not available at this location. Try a location on a public road.`);
+      }
 
       results.push({
         blob,

@@ -126,8 +126,8 @@ class WorldLabsClient:
     async def poll_operation(
         self,
         operation_id: str,
-        max_attempts: int = 40,
-        interval: float = 3.0,
+        max_attempts: int = 120,
+        interval: float = 5.0,
     ) -> dict:
         """
         Poll an operation until it completes or fails.
