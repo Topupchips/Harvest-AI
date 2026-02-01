@@ -1,0 +1,379 @@
+# Docs
+
+## Docs
+
+- [null](https://docs.keywordsai.co/.trae/TODO.md)
+- [API endpoint SOP](https://docs.keywordsai.co/api-endpoints/api_endpoints_sop.md): What the API is for
+- [Create automation](https://docs.keywordsai.co/api-endpoints/automation/automations/create.md)
+- [Update automation](https://docs.keywordsai.co/api-endpoints/automation/automations/patch.md)
+- [Create condition](https://docs.keywordsai.co/api-endpoints/automation/conditions/create.md)
+- [List conditions](https://docs.keywordsai.co/api-endpoints/automation/conditions/list.md)
+- [Create experiment](https://docs.keywordsai.co/api-endpoints/develop/experiments-v2/create.md)
+- [Delete experiment](https://docs.keywordsai.co/api-endpoints/develop/experiments-v2/delete.md)
+- [Retrieve experiment](https://docs.keywordsai.co/api-endpoints/develop/experiments-v2/get.md)
+- [List experiments](https://docs.keywordsai.co/api-endpoints/develop/experiments-v2/list.md)
+- [Export experiment logs](https://docs.keywordsai.co/api-endpoints/develop/experiments-v2/logs-export.md)
+- [Retrieve experiment log](https://docs.keywordsai.co/api-endpoints/develop/experiments-v2/logs-get.md)
+- [List experiment logs](https://docs.keywordsai.co/api-endpoints/develop/experiments-v2/logs-list.md)
+- [Search experiment logs](https://docs.keywordsai.co/api-endpoints/develop/experiments-v2/logs-search.md)
+- [Get experiment logs summary](https://docs.keywordsai.co/api-endpoints/develop/experiments-v2/logs-summary.md)
+- [Update experiment log](https://docs.keywordsai.co/api-endpoints/develop/experiments-v2/logs-update.md)
+- [Search experiment](https://docs.keywordsai.co/api-endpoints/develop/experiments-v2/search.md)
+- [Create chat completion](https://docs.keywordsai.co/api-endpoints/develop/gateway/chat-completions.md)
+- [AssemblyAI integration](https://docs.keywordsai.co/api-endpoints/develop/multimodal/assemblyai.md)
+- [Embeddings](https://docs.keywordsai.co/api-endpoints/develop/multimodal/embeddings.md)
+- [Speech to text](https://docs.keywordsai.co/api-endpoints/develop/multimodal/speech-to-text.md)
+- [Text to speech](https://docs.keywordsai.co/api-endpoints/develop/multimodal/text-to-speech.md)
+- [Cancel batch](https://docs.keywordsai.co/api-endpoints/develop/openai-batch/batches/cancel.md)
+- [Create batch](https://docs.keywordsai.co/api-endpoints/develop/openai-batch/batches/create.md)
+- [Retrieve batch](https://docs.keywordsai.co/api-endpoints/develop/openai-batch/batches/get.md)
+- [List batches](https://docs.keywordsai.co/api-endpoints/develop/openai-batch/batches/list.md)
+- [Retrieve file content](https://docs.keywordsai.co/api-endpoints/develop/openai-batch/files/content.md)
+- [Delete file](https://docs.keywordsai.co/api-endpoints/develop/openai-batch/files/delete.md)
+- [Retrieve file](https://docs.keywordsai.co/api-endpoints/develop/openai-batch/files/get.md)
+- [List files](https://docs.keywordsai.co/api-endpoints/develop/openai-batch/files/list.md)
+- [Upload file](https://docs.keywordsai.co/api-endpoints/develop/openai-batch/files/upload.md)
+- [Create version](https://docs.keywordsai.co/api-endpoints/develop/prompts/create-prompt-version.md)
+- [Create prompt](https://docs.keywordsai.co/api-endpoints/develop/prompts/create-prompts.md)
+- [Delete prompt](https://docs.keywordsai.co/api-endpoints/develop/prompts/delete-prompt.md)
+- [Delete version](https://docs.keywordsai.co/api-endpoints/develop/prompts/delete-prompt-version.md)
+- [Retrieve versions](https://docs.keywordsai.co/api-endpoints/develop/prompts/get-prompt-versions.md)
+- [Retrieve prompts](https://docs.keywordsai.co/api-endpoints/develop/prompts/get-prompts.md)
+- [Update prompt](https://docs.keywordsai.co/api-endpoints/develop/prompts/update-prompt.md)
+- [Update prompt version](https://docs.keywordsai.co/api-endpoints/develop/prompts/update-prompt-version.md)
+- [Create testset](https://docs.keywordsai.co/api-endpoints/develop/testsets/create.md)
+- [Delete testset](https://docs.keywordsai.co/api-endpoints/develop/testsets/delete.md)
+- [Retrieve testset](https://docs.keywordsai.co/api-endpoints/develop/testsets/get.md)
+- [List testsets](https://docs.keywordsai.co/api-endpoints/develop/testsets/list.md)
+- [Create testset rows](https://docs.keywordsai.co/api-endpoints/develop/testsets/rows-create.md)
+- [Delete testset row](https://docs.keywordsai.co/api-endpoints/develop/testsets/rows-delete.md)
+- [List testset rows](https://docs.keywordsai.co/api-endpoints/develop/testsets/rows-list.md)
+- [Update testset row](https://docs.keywordsai.co/api-endpoints/develop/testsets/rows-update.md)
+- [Update testset](https://docs.keywordsai.co/api-endpoints/develop/testsets/update.md)
+- [Create dataset](https://docs.keywordsai.co/api-endpoints/evaluate/datasets/create.md)
+- [Create dataset with specified logs](https://docs.keywordsai.co/api-endpoints/evaluate/datasets/create-with-logs.md)
+- [Delete dataset](https://docs.keywordsai.co/api-endpoints/evaluate/datasets/delete.md)
+- [Run eval on dataset](https://docs.keywordsai.co/api-endpoints/evaluate/datasets/eval-reports-create.md)
+- [List eval runs](https://docs.keywordsai.co/api-endpoints/evaluate/datasets/eval-reports-list.md)
+- [Retrieve dataset](https://docs.keywordsai.co/api-endpoints/evaluate/datasets/get.md)
+- [List datasets](https://docs.keywordsai.co/api-endpoints/evaluate/datasets/list.md)
+- [Add logs to dataset](https://docs.keywordsai.co/api-endpoints/evaluate/datasets/logs-add.md)
+- [Create dataset log](https://docs.keywordsai.co/api-endpoints/evaluate/datasets/logs-create.md)
+- [Delete log](https://docs.keywordsai.co/api-endpoints/evaluate/datasets/logs-delete.md)
+- [Retrieve log](https://docs.keywordsai.co/api-endpoints/evaluate/datasets/logs-get.md)
+- [List logs](https://docs.keywordsai.co/api-endpoints/evaluate/datasets/logs-list.md)
+- [List logs with filters](https://docs.keywordsai.co/api-endpoints/evaluate/datasets/logs-list-post.md)
+- [Update log (partial)](https://docs.keywordsai.co/api-endpoints/evaluate/datasets/logs-patch.md)
+- [Update log](https://docs.keywordsai.co/api-endpoints/evaluate/datasets/logs-put.md)
+- [Delete logs](https://docs.keywordsai.co/api-endpoints/evaluate/datasets/logs-remove.md)
+- [Update dataset](https://docs.keywordsai.co/api-endpoints/evaluate/datasets/patch.md)
+- [Create evaluator](https://docs.keywordsai.co/api-endpoints/evaluate/evaluators/create.md)
+- [Delete evaluator](https://docs.keywordsai.co/api-endpoints/evaluate/evaluators/delete.md)
+- [Retrieve evaluator](https://docs.keywordsai.co/api-endpoints/evaluate/evaluators/get.md)
+- [List evaluators](https://docs.keywordsai.co/api-endpoints/evaluate/evaluators/list.md)
+- [Run evaluator](https://docs.keywordsai.co/api-endpoints/evaluate/evaluators/run.md)
+- [Update evaluator](https://docs.keywordsai.co/api-endpoints/evaluate/evaluators/update.md)
+- [Create a log score](https://docs.keywordsai.co/api-endpoints/evaluate/log-scores/create.md)
+- [Delete log score](https://docs.keywordsai.co/api-endpoints/evaluate/log-scores/delete.md)
+- [Retrieve log score](https://docs.keywordsai.co/api-endpoints/evaluate/log-scores/get.md)
+- [List log scores](https://docs.keywordsai.co/api-endpoints/evaluate/log-scores/list.md)
+- [Update log score](https://docs.keywordsai.co/api-endpoints/evaluate/log-scores/update.md)
+- [Create score](https://docs.keywordsai.co/api-endpoints/evaluate/scores/create.md)
+- [Delete score](https://docs.keywordsai.co/api-endpoints/evaluate/scores/delete.md)
+- [Retrieve score](https://docs.keywordsai.co/api-endpoints/evaluate/scores/get.md)
+- [List scores](https://docs.keywordsai.co/api-endpoints/evaluate/scores/list.md)
+- [Update score](https://docs.keywordsai.co/api-endpoints/evaluate/scores/update.md)
+- [List credit transactions](https://docs.keywordsai.co/api-endpoints/manage/credit-transactions/list.md): Returns all credit transactions for your organization, newest first
+- [Get transaction details](https://docs.keywordsai.co/api-endpoints/manage/credit-transactions/retrieve.md): Retrieves a single credit transaction by ID
+- [Create custom model](https://docs.keywordsai.co/api-endpoints/manage/models/custom-models/create.md)
+- [Delete custom model](https://docs.keywordsai.co/api-endpoints/manage/models/custom-models/delete.md)
+- [Retrieve custom model](https://docs.keywordsai.co/api-endpoints/manage/models/custom-models/get.md)
+- [List custom models](https://docs.keywordsai.co/api-endpoints/manage/models/custom-models/list.md)
+- [Update custom model](https://docs.keywordsai.co/api-endpoints/manage/models/custom-models/update.md)
+- [Create custom provider](https://docs.keywordsai.co/api-endpoints/manage/models/custom-providers/create.md)
+- [Delete custom provider](https://docs.keywordsai.co/api-endpoints/manage/models/custom-providers/delete.md)
+- [Retrieve custom provider](https://docs.keywordsai.co/api-endpoints/manage/models/custom-providers/get.md)
+- [List custom providers](https://docs.keywordsai.co/api-endpoints/manage/models/custom-providers/list.md)
+- [Update custom provider](https://docs.keywordsai.co/api-endpoints/manage/models/custom-providers/update.md)
+- [List models](https://docs.keywordsai.co/api-endpoints/manage/models/models-endpoint.md)
+- [Create API key](https://docs.keywordsai.co/api-endpoints/manage/temporary-api-keys/create-temporary-key.md)
+- [Delete API key](https://docs.keywordsai.co/api-endpoints/manage/temporary-api-keys/delete-temporary-key.md)
+- [List API keys](https://docs.keywordsai.co/api-endpoints/manage/temporary-api-keys/list-temporary-keys.md)
+- [Retrieve API key](https://docs.keywordsai.co/api-endpoints/manage/temporary-api-keys/retrieve-temporary-key.md)
+- [Update API key](https://docs.keywordsai.co/api-endpoints/manage/temporary-api-keys/update-temporary-key.md)
+- [Delete log](https://docs.keywordsai.co/api-endpoints/observe/logs/delete-log-endpoint.md)
+- [Retrieve log](https://docs.keywordsai.co/api-endpoints/observe/logs/get-log-endpoint.md)
+- [Ingest Logs from traces](https://docs.keywordsai.co/api-endpoints/observe/logs/ingest.md)
+- [List logs](https://docs.keywordsai.co/api-endpoints/observe/logs/logs-list-endpoint.md)
+- [Get logs summary](https://docs.keywordsai.co/api-endpoints/observe/logs/logs-summary-endpoint.md)
+- [Update log](https://docs.keywordsai.co/api-endpoints/observe/logs/logs-update-endpoint.md)
+- [Create log](https://docs.keywordsai.co/api-endpoints/observe/logs/request-logging-endpoint.md)
+- [Update single log](https://docs.keywordsai.co/api-endpoints/observe/logs/update-single-log-endpoint.md)
+- [List thread](https://docs.keywordsai.co/api-endpoints/observe/threads/thread-list-endpoint.md)
+- [Retrieve trace](https://docs.keywordsai.co/api-endpoints/observe/traces/get.md)
+- [List traces](https://docs.keywordsai.co/api-endpoints/observe/traces/list.md)
+- [Retrive traces summary](https://docs.keywordsai.co/api-endpoints/observe/traces/summary.md)
+- [Ingest traces from logs](https://docs.keywordsai.co/api-endpoints/observe/traces/traces-ingest-from-logs.md)
+- [List customers with filters](https://docs.keywordsai.co/api-endpoints/observe/users/user-creation-endpoint.md)
+- [Delete user](https://docs.keywordsai.co/api-endpoints/observe/users/user-delete-endpoint.md)
+- [Retrieve user](https://docs.keywordsai.co/api-endpoints/observe/users/user-detail-endpoint.md)
+- [Update user](https://docs.keywordsai.co/api-endpoints/observe/users/user-update-endpoint.md)
+- [List customers](https://docs.keywordsai.co/api-endpoints/observe/users/users-data-endpoint.md)
+- [Regular Response](https://docs.keywordsai.co/api-endpoints/proxy-endpoints/text-generation/regular-response.md): JSON response that is straight forward to read and parse
+- [Text Generation](https://docs.keywordsai.co/api-endpoints/proxy-endpoints/text-generation/request-params.md): An overview of LLM generation parameters
+- [Streaming Response](https://docs.keywordsai.co/api-endpoints/proxy-endpoints/text-generation/streaming-response.md): A faster, smoother response that boosts user experience
+- [API endpoint SOP](https://docs.keywordsai.co/api-endpoints/reference/api_endpoints_sop.md): What the API is for
+- [Filters API Reference](https://docs.keywordsai.co/api-endpoints/reference/filters_api_reference.md): This document describes the filtering system used across Keywords AI endpoints (logs, traces, threads, etc.).
+- [How to structure LLM output with Anthropic models](https://docs.keywordsai.co/cookbooks/anthropic-structure-output.md)
+- [Run Experiments via API](https://docs.keywordsai.co/cookbooks/experiments-tutorial.md): Learn how to programmatically run evaluation experiments using Keywords AI API.
+- [Filters in Jinja templates](https://docs.keywordsai.co/cookbooks/filters-in-jinja.md): Learn how to use filters in Jinja.
+- [Build and Scale AI Products with Keywords AI: Platform Overview](https://docs.keywordsai.co/cookbooks/what-is-keywords-ai.md): Don't switch between tools to build, monitor, and test your AI products.
+- [Keywords API keys](https://docs.keywordsai.co/documentation/admin/keywords_api_keys.md): Manage your Keywords AI API keys
+- [LLM provider keys](https://docs.keywordsai.co/documentation/admin/llm_provider_keys.md): This is the guide for how to add your own credentials in Keywords AI
+- [Create a new team](https://docs.keywordsai.co/documentation/admin/team_management/create_a_new_team.md): Learn how to create a new team in Keywords AI.
+- [Monitoring](https://docs.keywordsai.co/documentation/products/automation/quickstart.md): This is a guide for you to create a automation on the platform.
+- [Online evals](https://docs.keywordsai.co/documentation/products/automation/quickstart_online_eval.md): This is a guide for you to set up an online evals automation on the platform.
+- [Metrics](https://docs.keywordsai.co/documentation/products/dashboard/Metrics.md): A guide to view LLM usage metrics and user analytics
+- [Views](https://docs.keywordsai.co/documentation/products/dashboard/views.md): Save filters from Logs, Traces, Users, Prompts, and more as reusable views for quick access and sharing.
+- [Create datasets via API](https://docs.keywordsai.co/documentation/products/dataset/via_api.md): A guided tutorial to create a dataset, add logs, and run evals—without reading the full API reference.
+- [Create datasets in the UI](https://docs.keywordsai.co/documentation/products/dataset/via_ui.md): A guided walkthrough to create datasets from existing logs (sampling) or create an empty dataset and add logs via JSON/CSV.
+- [Run experiments via UI](https://docs.keywordsai.co/documentation/products/evaluation/experiments/experiments.md): A spreadsheet-like interface built for multi-config prompt testing
+- [Run experiments with images](https://docs.keywordsai.co/documentation/products/evaluation/experiments/experiments-images.md): A comprehensive guide to creating and running experiments with image-based datasets
+- [Overview](https://docs.keywordsai.co/documentation/products/evaluation/experiments/overview.md): A guide to manage test cases for running experiments and run prompt experiments against testsets.
+- [Add test cases from logs](https://docs.keywordsai.co/documentation/products/evaluation/experiments/testsets.md)
+- [Upload a testset](https://docs.keywordsai.co/documentation/products/evaluation/experiments/upload-testsets.md): Easily manage and organize test cases. Import a CSV file and edit it like a Google Sheet.
+- [Send human evals via API](https://docs.keywordsai.co/documentation/products/evaluation/human-evals/human-annotation.md): A guide on how to send human feedback to the API.
+- [Set up human evaluators](https://docs.keywordsai.co/documentation/products/evaluation/human-evals/human-evals-setup.md): A guide on how to set up human evaluators.
+- [Set up an LLM evaluator](https://docs.keywordsai.co/documentation/products/evaluation/llm-evals/llm-evaluator.md): In this guide, we will show you how to run an LLM evaluator in the UI.
+- [Run LLM evals in code](https://docs.keywordsai.co/documentation/products/evaluation/llm-evals/run-evaluator-code.md): In this guide, we will show you how to add an LLM evaluator in the code.
+- [Run LLM evals via UI](https://docs.keywordsai.co/documentation/products/evaluation/llm-evals/run-evaluator-ui.md): In this guide, we will show you how to run an LLM evaluator in the UI.
+- [Run your first evaluation](https://docs.keywordsai.co/documentation/products/evaluation/overview.md): A guide to benchmark LLM performance with evals.
+- [Scores](https://docs.keywordsai.co/documentation/products/evaluation/scores.md): Learn how to manage evaluation scores for your logs
+- [Run Experiments via API](https://docs.keywordsai.co/documentation/products/experiments_v2/api-tutorial.md): A guided workflow to run experiments programmatically. Pick a workflow type (Prompt / Completion / Custom) and follow the steps.
+- [Create Experiments in the UI](https://docs.keywordsai.co/documentation/products/experiments_v2/via_ui.md): A guided walkthrough to create experiments in the platform UI using Prompt, LLM generation (chat completion), or Custom tasks.
+- [Feature Name](https://docs.keywordsai.co/documentation/products/features_sop.md): One sentence description (50-160 chars)
+- [Function calling](https://docs.keywordsai.co/documentation/products/gateway/advanced_features/function_calling.md): This is the guide for how to use function calling in Keywords AI
+- [Enable thinking](https://docs.keywordsai.co/documentation/products/gateway/advanced_features/thinking.md): How to enable thinking mode for supported models
+- [Upload image](https://docs.keywordsai.co/documentation/products/gateway/advanced_features/upload_image.md): Learn how to upload image variables through Keywords AI gateway.
+- [Upload PDF](https://docs.keywordsai.co/documentation/products/gateway/advanced_features/upload_pdf.md): Learn how to use PDF files with Keywords AI.
+- [Supported models](https://docs.keywordsai.co/documentation/products/gateway/configuration/models.md): Call 200+ LLMs with a single OpenAI compatible format
+- [Disable logging](https://docs.keywordsai.co/documentation/products/gateway/monitoring_analysis/disable_logging.md)
+- [Caches](https://docs.keywordsai.co/documentation/products/gateway/performance_optimization/caches.md): Reduce latency and save LLM costs by caching LLM prompts and responses.
+- [Prompt caching](https://docs.keywordsai.co/documentation/products/gateway/performance_optimization/prompt-caching.md): Prompt caching is a feature that allows you to cache the results of a prompt so that it can be reused later.
+- [Fallback models](https://docs.keywordsai.co/documentation/products/gateway/traffic_management/fallbacks.md): This is the guide for how to set up fallbacks in Keywords AI
+- [Load balancing](https://docs.keywordsai.co/documentation/products/gateway/traffic_management/load-balancing.md): Increase your LLM rate limits with our load balancing feature.
+- [Rate limit](https://docs.keywordsai.co/documentation/products/gateway/traffic_management/rate_limit.md): When an LLM call is rate limited, our system detects the error and retries the request to prevent failovers.
+- [Retries](https://docs.keywordsai.co/documentation/products/gateway/traffic_management/retries.md): When an LLM call fails, our system detects the error and retries the request to prevent failovers.
+- [Custom properties](https://docs.keywordsai.co/documentation/products/logs/configuration/custom_properties.md): Custom properties allows you to add any additional information to your logs, which can help you tag and filter logs.
+- [Group logs](https://docs.keywordsai.co/documentation/products/logs/configuration/group_logs.md): Group LLM logs together
+- [Pass Keywords AI parameters](https://docs.keywordsai.co/documentation/products/logs/configuration/pass_keywordsai_parameters.md): Complete guide to passing Keywords AI parameters using the 3-layer approach: required fields, telemetry, and metadata
+- [Threads](https://docs.keywordsai.co/documentation/products/logs/configuration/threads.md): A guide to track multi-turn conversation chat logs.
+- [Custom model](https://docs.keywordsai.co/documentation/products/logs/custom_model.md): Create custom model and track their usage
+- [Log embedding models](https://docs.keywordsai.co/documentation/products/logs/embedding_logging.md): Learn how to log embedding models.
+- [Export logs](https://docs.keywordsai.co/documentation/products/logs/export_logs.md): Export your LLM logs to CSV or JSON for external analysis.
+- [Log Images](https://docs.keywordsai.co/documentation/products/logs/log_images.md): How to log LLM requests that include images
+- [Log thinking blocks](https://docs.keywordsai.co/documentation/products/logs/log_thinking.md): How to log LLM requests that include thinking blocks
+- [Log tool calls](https://docs.keywordsai.co/documentation/products/logs/log_tool_calls.md): How to log tool calls and function calling interactions with Keywords AI
+- [Log prompt variables](https://docs.keywordsai.co/documentation/products/logs/log_variables.md): You can send your prompt variables to Keywords AI to log them in your logs. So you can see the prompt template and variables separately
+- [Quickstart](https://docs.keywordsai.co/documentation/products/logs/quickstart.md)
+- [Save log as prompt](https://docs.keywordsai.co/documentation/products/logs/save_log_to_prompt.md): Convert LLM logs into reusable prompts with one click for testing, iteration, and deployment
+- [Sharing](https://docs.keywordsai.co/documentation/products/logs/sharing.md): Share a log with your team
+- [Alerts & Warnings](https://docs.keywordsai.co/documentation/products/notifications/subscribe_alerts.md): Subscribe to system status and get notified when an LLM outage is detected.
+- [Webhooks](https://docs.keywordsai.co/documentation/products/notifications/webhooks.md)
+- [Create a prompt](https://docs.keywordsai.co/documentation/products/prompt_management/creating_prompts/create_prompt.md): A guide to create, version, deploy, and share prompts.
+- [Jinja support](https://docs.keywordsai.co/documentation/products/prompt_management/creating_prompts/jinja_support.md): We support Jinja templates in the prompt. This guide will show you how to use Jinja templates in the prompt.
+- [JSON schema](https://docs.keywordsai.co/documentation/products/prompt_management/creating_prompts/json_schema.md): You can use JSON schema to define the output structure of your prompt.
+- [Create a prompt via API](https://docs.keywordsai.co/documentation/products/prompt_management/creating_prompts/manage_prompt_api.md): A guide on how to create and versiona prompt in Keywords AI.
+- [Streaming](https://docs.keywordsai.co/documentation/products/prompt_management/creating_prompts/streaming.md): Control streaming when connect prompts to gateway
+- [Team collaboration](https://docs.keywordsai.co/documentation/products/prompt_management/management_collaboration/team_collaboration.md): Collaborate with your team on prompts.
+- [Version control](https://docs.keywordsai.co/documentation/products/prompt_management/management_collaboration/version_control.md): A guide to manage and track changes to your prompts.
+- [Prompt playground](https://docs.keywordsai.co/documentation/products/prompt_management/model_playground.md): Test and compare prompts for different models in the LLM playground
+- [Quickstart](https://docs.keywordsai.co/documentation/products/prompt_management/quickstart.md)
+- [Use prompt in logging](https://docs.keywordsai.co/documentation/products/prompt_management/use_prompt_in_code/prompt_logging.md): Monitor a prompt in production and get detailed metrics.
+- [Use prompt in gateway](https://docs.keywordsai.co/documentation/products/prompt_management/use_prompt_in_code/use_prompt_in_llms.md): Deploy a prompt to your codebase and understand override modes.
+- [Customer identifier](https://docs.keywordsai.co/documentation/products/traces/configuration/customer_identifier.md): You can pass customer identifier to your traces to get more insights into your LLM workflows.
+- [Group traces](https://docs.keywordsai.co/documentation/products/traces/configuration/group_traces.md): Group traces across different sessions by a trace group id.
+- [Pass Keywords AI parameters](https://docs.keywordsai.co/documentation/products/traces/configuration/pass_keywordsai_parameters.md): Enrich your traces with Keywords AI parameters to gain deeper insights into your LLM workflows and user interactions.
+- [Decorators](https://docs.keywordsai.co/documentation/products/traces/decorators.md): Use decorators to instrument your code and automatically trace your LLM workflows with minimal code changes.
+- [Ingest traces from logs](https://docs.keywordsai.co/documentation/products/traces/logs_to_trace.md): Import logs or programmatically construct traces by posting a list of span logs to the ingestion endpoint.
+- [Override span input & output](https://docs.keywordsai.co/documentation/products/traces/override-span-input-output.md): Explicitly control what appears as a span’s input/output in the trace UI
+- [Quickstart](https://docs.keywordsai.co/documentation/products/traces/quickstart.md)
+- [Enable user analytics](https://docs.keywordsai.co/documentation/products/users/customer-identifier.md): Keywords AI allows you to track user data and monitor the user's data in the platform.
+- [Overview](https://docs.keywordsai.co/documentation/products/users/quickstart.md): A guide to view LLM-level user analytics metrics.
+- [Set budget for users](https://docs.keywordsai.co/documentation/products/users/user-budget.md)
+- [Rate limit for users](https://docs.keywordsai.co/documentation/products/users/user_rate_limit.md): The user-level rate limit helps you control the LLM usage of each user.
+- [API rate limits](https://docs.keywordsai.co/documentation/resources/api-rate-limits.md): Learn about rate limits for Keywords AI API endpoints and how to handle them.
+- [Automatic retries](https://docs.keywordsai.co/documentation/resources/automatic-retries.md): Retry failed request due to busy upstream provider
+- [Error handling](https://docs.keywordsai.co/documentation/resources/error-handling.md)
+- [Model Context Protocol (MCP)](https://docs.keywordsai.co/documentation/resources/mcp.md): Access Keywords AI data directly from your AI coding assistant using MCP
+- [Data model](https://docs.keywordsai.co/documentation/resources/observability-data-model.md): Understanding the core concepts behind Keywords AI's observability features
+- [Answer relevance](https://docs.keywordsai.co/documentation/resources/relari_eval/generation/answer-relevance.md)
+- [Faithfulness](https://docs.keywordsai.co/documentation/resources/relari_eval/generation/faithfulness.md)
+- [Flesch-Kincaid readability](https://docs.keywordsai.co/documentation/resources/relari_eval/generation/flesch-kincaid.md)
+- [Sentiment analysis](https://docs.keywordsai.co/documentation/resources/relari_eval/other/sentiment.md)
+- [LLM-based Context Precision](https://docs.keywordsai.co/documentation/resources/relari_eval/retrieval/context-precision.md): Measure information density
+- [How streaming works](https://docs.keywordsai.co/documentation/resources/streaming.md): Pushing the output token by token
+- [What is LLM monitoring?](https://docs.keywordsai.co/documentation/resources/what-is-llm-observability-and-monitoring.md): Discover the importance of LLM monitoring in AI. Learn how it ensures accuracy, performance, and reliability while reducing costs. Keywords AI offers top-tier LLM monitoring tools.
+- [Architecture review](https://docs.keywordsai.co/documentation/security/architecture_review.md): Keywords AI security architecture and infrastructure overview
+- [GDPR](https://docs.keywordsai.co/documentation/security/gdpr.md): Keywords AI GDPR compliance and data protection
+- [HIPAA Compliance](https://docs.keywordsai.co/documentation/security/hipaa.md): Keywords AI HIPAA compliance information and requirements
+- [Security FAQ](https://docs.keywordsai.co/documentation/security/security-qa.md): Frequently asked questions about Keywords AI's security practices and compliance
+- [SOC II](https://docs.keywordsai.co/documentation/security/socii.md): Keywords AI SOC 2 compliance
+- [Trust center](https://docs.keywordsai.co/documentation/security/trust_center.md): Keywords AI Trust Center - Security & Privacy Information
+- [Feedback](https://docs.keywordsai.co/documentation/support/feedback.md): Help us improve our documentation
+- [Status](https://docs.keywordsai.co/documentation/support/status.md): Real-time status of Keywords AI services
+- [Support](https://docs.keywordsai.co/documentation/support/support.md): Get help and connect with the Keywords AI community
+- [LLM inference](https://docs.keywordsai.co/get-started/llm-inference.md)
+- [Observability data model](https://docs.keywordsai.co/get-started/observability_data_model.md): Understanding how Keywords AI organizes and presents your LLM data
+- [Overview](https://docs.keywordsai.co/get-started/overview.md)
+- [Evaluations](https://docs.keywordsai.co/get-started/quickstart/evaluation.md): Evaluate and improve your LLM applications with automated testing and scoring
+- [AI gateway](https://docs.keywordsai.co/get-started/quickstart/gateway.md): Keywords AI AI gateway supports you call 250+ LLMs using the same input/output format.
+- [Logging via API](https://docs.keywordsai.co/get-started/quickstart/logging.md): Send your LLM logs to Keywords AI and monitor them in real-time
+- [Create a prompt](https://docs.keywordsai.co/get-started/quickstart/prompt_management.md): A complete guide to create, deploy, and use prompts in your codebase.
+- [Agent tracing](https://docs.keywordsai.co/get-started/quickstart/tracing.md): You can use Keywords AI Traces to trace your LLM requests and responses.
+- [PostHog](https://docs.keywordsai.co/integration/analytics/posthog.md): PostHog is an open-source product analytics platform, you can monitor your product traffic and user sessions with PostHog. Now you can connect PostHog with Keywords AI to monitor your LLM performance and get observability.
+- [Claude Code](https://docs.keywordsai.co/integration/dev-tools/claude-code.md): Trace your Claude Code (Anthropic CLI) conversations with Keywords AI for full observability into thinking, tool calls, and agent workflows.
+- [Cursor](https://docs.keywordsai.co/integration/dev-tools/cursor.md): Trace your Cursor AI agent conversations with Keywords AI for full observability into thinking, tool calls, and responses.
+- [Linkup](https://docs.keywordsai.co/integration/dev-tools/linkup.md): Linkup is an AI dev tool that helps you connect your code with your LLM. It’s a platform that allows you to connect your code with your LLM and get observability.
+- [BAML](https://docs.keywordsai.co/integration/development-frameworks/baml.md): BAML is a domain-specific language to write and test LLM functions. Use BAML with Keywords AI to get complete LLM observability
+- [Anthropic SDK](https://docs.keywordsai.co/integration/development-frameworks/llm_framework/anthropic.md): Use Anthropic SDK through Keywords AI
+- [Google Gen AI SDK](https://docs.keywordsai.co/integration/development-frameworks/llm_framework/google_genai.md): Use Google Gen AI SDK with Keywords AI
+- [Haystack SDK](https://docs.keywordsai.co/integration/development-frameworks/llm_framework/haystack.md): Use Haystack pipelines with Keywords AI gateway for automatic logging, fallbacks, and cost optimization
+- [LangChain SDK](https://docs.keywordsai.co/integration/development-frameworks/llm_framework/langchain.md): Use LangChain with Keywords AI
+- [LiteLLM](https://docs.keywordsai.co/integration/development-frameworks/llm_framework/litellm.md): Use LiteLLM with Keywords AI for logging and gateway access.
+- [LlamaIndex SDK](https://docs.keywordsai.co/integration/development-frameworks/llm_framework/llama-index.md): Use LlamaIndex through Keywords AI
+- [Responses API](https://docs.keywordsai.co/integration/development-frameworks/llm_framework/openai/openai-responses.md): A guide to integrating the OpenAI Responses API with Keywords AI.
+- [Chat completion](https://docs.keywordsai.co/integration/development-frameworks/llm_framework/openai/openai-sdk.md): Complete guide to integrating Keywords AI with OpenAI SDK for seamless LLM gateway usage.
+- [Vercel AI SDK](https://docs.keywordsai.co/integration/development-frameworks/llm_framework/vercel.md): Log LLM requests with Keywords AI gateway
+- [Mem0](https://docs.keywordsai.co/integration/development-frameworks/mem0.md): A guide to integrating Mem0 with Keywords AI.
+- [OpenAI Agents SDK](https://docs.keywordsai.co/integration/development-frameworks/openai-agent.md): Build multi-agent workflows with the OpenAI Agents SDK and Keywords AI.
+- [BAML](https://docs.keywordsai.co/integration/development-frameworks/tracing/baml.md): Use BAML with Keywords AI tracing
+- [Haystack](https://docs.keywordsai.co/integration/development-frameworks/tracing/haystack.md): Monitor and trace your Haystack pipelines with Keywords AI for complete workflow visibility
+- [Instructor](https://docs.keywordsai.co/integration/development-frameworks/tracing/instructor.md): Learn how to integrate KeywordsAI tracing with Instructor to monitor and analyze your structured LLM outputs. Step-by-step guide for setting up tracing with async Instructor workflows.
+- [Langfuse](https://docs.keywordsai.co/integration/development-frameworks/tracing/langfuse.md): Send Langfuse traces to Keywords AI with OTEL instrumentation.
+- [LangGraph](https://docs.keywordsai.co/integration/development-frameworks/tracing/langgraph.md): Learn how to integrate KeywordsAI tracing with Vercel AI SDK to monitor and analyze your AI application performance. Step-by-step guide for setting up environment variables and creating traced workflows.
+- [Mastra](https://docs.keywordsai.co/integration/development-frameworks/tracing/mastra.md): Use Mastra with Keywords AI
+- [Python](https://docs.keywordsai.co/integration/development-frameworks/tracing/openai-agents-sdk.md): Build multi-agent workflows with the OpenAI Agents SDK and send traces to Keywords AI.
+- [TS/JS](https://docs.keywordsai.co/integration/development-frameworks/tracing/openai-agents-sdk-js.md): Build multi-agent workflows with the OpenAI Agents SDK and Keywords AI.
+- [Vercel AI SDK](https://docs.keywordsai.co/integration/development-frameworks/tracing/vercel-tracing.md): Learn how to integrate KeywordsAI tracing with Vercel AI SDK to monitor and analyze your AI application performance. Step-by-step guide for setting up environment variables and creating traced workflows.
+- [Cognee](https://docs.keywordsai.co/integration/others/cognee.md): LLM observability for AI memory with Keywords AI and Cognee
+- [Overview](https://docs.keywordsai.co/integration/overview.md): Use your own API keys through Keywords AI
+- [AI21 Labs](https://docs.keywordsai.co/integration/providers/ai21labs.md): Use your own AI21 Labs credits through Keywords AI
+- [Anthropic](https://docs.keywordsai.co/integration/providers/anthropic.md): Route Anthropic model calls through Keywords AI Gateway and track requests.
+- [AssemblyAI](https://docs.keywordsai.co/integration/providers/assemblyai.md): A guide to call and log AssemblyAI speech-to-text model with Keywords AI gateway.
+- [Azure OpenAI](https://docs.keywordsai.co/integration/providers/azure.md): Use your own Azure OpenAI credits through Keywords AI
+- [Baseten](https://docs.keywordsai.co/integration/providers/baseten.md): Use your own Baseten credits through Keywords AI
+- [AWS Bedrock](https://docs.keywordsai.co/integration/providers/bedrock.md): Use your own AWS credits through Keywords AI
+- [Cohere](https://docs.keywordsai.co/integration/providers/cohere.md): Use your own Cohere credits through Keywords AI
+- [DeepSeek](https://docs.keywordsai.co/integration/providers/deepseek.md): Use your own DeepSeek credits through Keywords AI
+- [Fireworks AI](https://docs.keywordsai.co/integration/providers/fireworks.md): Route Fireworks AI model calls through Keywords AI Gateway using your own Fireworks credits.
+- [Google Gemini](https://docs.keywordsai.co/integration/providers/gemini.md): Use your own Gemini credits through Keywords AI
+- [Groq](https://docs.keywordsai.co/integration/providers/groq.md): Route Groq model calls through Keywords AI Gateway using your own Groq credits.
+- [Inference](https://docs.keywordsai.co/integration/providers/inference.md): Use your own Inference credits through Keywords AI
+- [Mistral](https://docs.keywordsai.co/integration/providers/mistral.md): Use your own Mistral credits through Keywords AI
+- [Moonshot](https://docs.keywordsai.co/integration/providers/moonshot.md): Use your own Moonshot credits through Keywords AI
+- [Nebius AI](https://docs.keywordsai.co/integration/providers/nebius.md)
+- [Nextbit](https://docs.keywordsai.co/integration/providers/nextbit.md): Use your own Nextbit credits through Keywords AI
+- [Novita AI](https://docs.keywordsai.co/integration/providers/novita.md)
+- [OpenAI](https://docs.keywordsai.co/integration/providers/openai.md): Route OpenAI model calls through Keywords AI Gateway and track requests.
+- [OpenRouter](https://docs.keywordsai.co/integration/providers/openrouter.md): Route OpenRouter model calls through Keywords AI Gateway using your own OpenRouter credits.
+- [Parasail](https://docs.keywordsai.co/integration/providers/parasail.md): Use your own Parasail credits through Keywords AI
+- [Perplexity AI](https://docs.keywordsai.co/integration/providers/perplexity.md): Use your own Perplexity AI credits through Keywords AI
+- [Reducto](https://docs.keywordsai.co/integration/providers/reducto.md): Use your own Reducto credits through Keywords AI
+- [Replicate](https://docs.keywordsai.co/integration/providers/replicate.md): Use your own Replicate credits through Keywords AI
+- [Together AI](https://docs.keywordsai.co/integration/providers/together.md): Route Together AI model calls through Keywords AI Gateway using your own Together AI credits.
+- [Google Vertex AI](https://docs.keywordsai.co/integration/providers/vertex.md): Use your own Vertex AI credits through Keywords AI
+- [xAI](https://docs.keywordsai.co/integration/providers/xAI.md): Use your own xAI credits through Keywords AI
+- [Vercel AI SDK](https://docs.keywordsai.co/integration/tracing/vercel-tracing.md): Learn how to integrate Keywords AI tracing with the Vercel AI SDK (Next.js) using OpenTelemetry.
+- [Add Logs to Dataset](https://docs.keywordsai.co/python-sdk/datasets/add-logs-to-dataset.md): Add logs to an existing dataset based on filters and time range
+- [Create Dataset](https://docs.keywordsai.co/python-sdk/datasets/create.md): Create a new dataset to organize and manage collections of logs
+- [Delete Dataset](https://docs.keywordsai.co/python-sdk/datasets/delete.md): Permanently delete a dataset and all its associated data
+- [Get Dataset](https://docs.keywordsai.co/python-sdk/datasets/get.md): Retrieve a specific dataset by ID with complete details
+- [Get Evaluation Report](https://docs.keywordsai.co/python-sdk/datasets/get-evaluation-report.md): Retrieve the results and report of a completed evaluation
+- [List Datasets](https://docs.keywordsai.co/python-sdk/datasets/list.md): Retrieve and filter datasets with pagination and sorting options
+- [List Dataset Logs](https://docs.keywordsai.co/python-sdk/datasets/list-dataset-logs.md): Retrieve all logs associated with a specific dataset
+- [List Evaluation Reports](https://docs.keywordsai.co/python-sdk/datasets/list-evaluation-reports.md): Retrieve a list of evaluation reports with filtering and pagination
+- [Datasets API Overview](https://docs.keywordsai.co/python-sdk/datasets/overview.md): Manage datasets and collections of logs with the Keywords AI Python SDK
+- [Remove Logs from Dataset](https://docs.keywordsai.co/python-sdk/datasets/remove-logs-from-dataset.md): Remove logs from an existing dataset
+- [Run Dataset Evaluation](https://docs.keywordsai.co/python-sdk/datasets/run-dataset-evaluation.md): Execute an evaluation on a dataset using specified evaluators
+- [Update Dataset](https://docs.keywordsai.co/python-sdk/datasets/update.md): Update dataset information including name, description, and metadata
+- [Create Evaluator](https://docs.keywordsai.co/python-sdk/evaluators/create.md): Create a new evaluator for experiment assessment
+- [Delete Evaluator](https://docs.keywordsai.co/python-sdk/evaluators/delete.md): Delete an existing evaluator
+- [Get Evaluator](https://docs.keywordsai.co/python-sdk/evaluators/get.md): Retrieve a specific evaluator by ID
+- [List Evaluators](https://docs.keywordsai.co/python-sdk/evaluators/list.md): Retrieve a list of available evaluators
+- [Evaluators Overview](https://docs.keywordsai.co/python-sdk/evaluators/overview.md): Comprehensive guide to the Keywords AI Evaluators API for automated evaluation and quality assessment
+- [Update Evaluator](https://docs.keywordsai.co/python-sdk/evaluators/update.md): Update an existing evaluator's properties
+- [Examples](https://docs.keywordsai.co/python-sdk/examples.md): Comprehensive examples for using the Keywords AI Python SDK
+- [Add Columns](https://docs.keywordsai.co/python-sdk/experiments/add-columns.md): Add new columns to an experiment dataset
+- [Add Rows](https://docs.keywordsai.co/python-sdk/experiments/add-rows.md): Add rows to an existing experiment
+- [Create Experiment](https://docs.keywordsai.co/python-sdk/experiments/create.md): Create a new experiment to test different variants
+- [Delete Experiment](https://docs.keywordsai.co/python-sdk/experiments/delete.md): Remove an experiment from your account
+- [Get Experiment](https://docs.keywordsai.co/python-sdk/experiments/get.md): Retrieve detailed information about a specific experiment
+- [List Experiments](https://docs.keywordsai.co/python-sdk/experiments/list.md): Retrieve a list of experiments with filtering and pagination
+- [Experiments API Overview](https://docs.keywordsai.co/python-sdk/experiments/overview.md): Design, run, and analyze experiments with the Keywords AI Experiments API
+- [Remove Columns](https://docs.keywordsai.co/python-sdk/experiments/remove-columns.md): Remove columns from an experiment dataset
+- [Remove Rows](https://docs.keywordsai.co/python-sdk/experiments/remove-rows.md): Remove rows from an experiment dataset
+- [Run Experiment](https://docs.keywordsai.co/python-sdk/experiments/run-experiment.md): Execute an experiment with the configured dataset
+- [Run Experiment Evaluations](https://docs.keywordsai.co/python-sdk/experiments/run-experiment-evals.md): Run evaluations on experiment results
+- [Update Experiment](https://docs.keywordsai.co/python-sdk/experiments/update.md): Modify experiment configuration and settings
+- [Update Columns](https://docs.keywordsai.co/python-sdk/experiments/update-columns.md): Update column definitions in an experiment dataset
+- [Update Rows](https://docs.keywordsai.co/python-sdk/experiments/update-rows.md): Update existing rows in an experiment dataset
+- [Create a log](https://docs.keywordsai.co/python-sdk/logs/create.md): Create a new log entry to track conversations and API requests
+- [Get a log](https://docs.keywordsai.co/python-sdk/logs/get.md): Retrieve a specific log entry by its ID
+- [List logs](https://docs.keywordsai.co/python-sdk/logs/list.md): Retrieve log entries with pagination and sorting using URL query parameters
+- [Logs API Overview](https://docs.keywordsai.co/python-sdk/logs/overview.md): Manage conversation logs and request/response data with the Keywords AI Python SDK
+- [Create a prompt](https://docs.keywordsai.co/python-sdk/prompts/create.md): Create a new prompt to organize and manage prompt versions
+- [Create Prompt Version](https://docs.keywordsai.co/python-sdk/prompts/create-version.md): Create a new version of an existing prompt
+- [Delete Prompt](https://docs.keywordsai.co/python-sdk/prompts/delete.md): Delete a prompt permanently from your account
+- [Get Prompt](https://docs.keywordsai.co/python-sdk/prompts/get.md): Retrieve a specific prompt by its ID
+- [Get Prompt Version](https://docs.keywordsai.co/python-sdk/prompts/get-version.md): Retrieve a specific version of a prompt
+- [List Prompts](https://docs.keywordsai.co/python-sdk/prompts/list.md): Retrieve and filter prompts with pagination support
+- [List Prompt Versions](https://docs.keywordsai.co/python-sdk/prompts/list-versions.md): Retrieve all versions of a specific prompt
+- [Prompts API Overview](https://docs.keywordsai.co/python-sdk/prompts/overview.md): Manage and version your prompts with the Keywords AI Prompts API
+- [Update Prompt](https://docs.keywordsai.co/python-sdk/prompts/update.md): Update an existing prompt's name or description
+- [Update Prompt Version](https://docs.keywordsai.co/python-sdk/prompts/update-version.md): Update an existing prompt version
+- [Quickstart](https://docs.keywordsai.co/python-sdk/quickstart.md): Get started with the Keywords AI Python SDK in minutes
+- [addSpanEvent()](https://docs.keywordsai.co/tracing-sdk-js/client/add-span-event.md): Add a timestamped event to the current span
+- [flush()](https://docs.keywordsai.co/tracing-sdk-js/client/flush.md): Manually flush pending spans to Keywords AI
+- [getClient()](https://docs.keywordsai.co/tracing-sdk-js/client/get-client.md): Access the Keywords AI client for span and trace operations
+- [getContextValue()](https://docs.keywordsai.co/tracing-sdk-js/client/get-context-value.md): Get a value from the trace context by key
+- [getCurrentSpanId()](https://docs.keywordsai.co/tracing-sdk-js/client/get-current-span-id.md): Get the current span ID
+- [getCurrentTraceId()](https://docs.keywordsai.co/tracing-sdk-js/client/get-current-trace-id.md): Get the current trace ID
+- [getTracer()](https://docs.keywordsai.co/tracing-sdk-js/client/get-tracer.md): Get the underlying OpenTelemetry tracer instance
+- [initialize()](https://docs.keywordsai.co/tracing-sdk-js/client/initialize.md): Initialize the Keywords AI telemetry client
+- [isRecording()](https://docs.keywordsai.co/tracing-sdk-js/client/is-recording.md): Check if tracing is currently active
+- [recordSpanException()](https://docs.keywordsai.co/tracing-sdk-js/client/record-span-exception.md): Record an error or exception on the current span
+- [setContextValue()](https://docs.keywordsai.co/tracing-sdk-js/client/set-context-value.md): Set a value in the trace context by key
+- [shutdown()](https://docs.keywordsai.co/tracing-sdk-js/client/shutdown.md): Gracefully shutdown the tracing client and flush all pending spans
+- [updateCurrentSpan()](https://docs.keywordsai.co/tracing-sdk-js/client/update-current-span.md): Update name, status, attributes, and Keywords AI params on the current span
+- [Keywords AI Parameters](https://docs.keywordsai.co/tracing-sdk-js/configuration/keywordsai-params.md): Understanding Keywords AI-specific span parameters for filtering and metadata
+- [Examples](https://docs.keywordsai.co/tracing-sdk-js/examples.md): Real TypeScript examples from the keywordsai-example-projects repository
+- [Automatic Instrumentation](https://docs.keywordsai.co/tracing-sdk-js/instrumentation/overview.md): Auto-instrument popular libraries like OpenAI and Anthropic
+- [withAgent()](https://docs.keywordsai.co/tracing-sdk-js/methods/with-agent.md): Wrap an async function as a traced agent
+- [withTask()](https://docs.keywordsai.co/tracing-sdk-js/methods/with-task.md): Wrap an async function as a traced task
+- [withTool()](https://docs.keywordsai.co/tracing-sdk-js/methods/with-tool.md): Wrap an async function as a traced tool
+- [withWorkflow()](https://docs.keywordsai.co/tracing-sdk-js/methods/with-workflow.md): Wrap an async function as a traced workflow
+- [Quickstart](https://docs.keywordsai.co/tracing-sdk-js/quickstart.md): Get started with the @keywordsai/tracing TypeScript SDK
+- [add_event()](https://docs.keywordsai.co/tracing-sdk/client/add-event.md): Add an event to the current span
+- [export_spans()](https://docs.keywordsai.co/tracing-sdk/client/export-spans.md): Export spans collected from a SpanBuffer or a list of ReadableSpan
+- [flush()](https://docs.keywordsai.co/tracing-sdk/client/flush.md): Force flush pending spans
+- [get_client()](https://docs.keywordsai.co/tracing-sdk/client/get-client.md): Access the KeywordsAI client for span and trace operations
+- [get_context_value()](https://docs.keywordsai.co/tracing-sdk/client/get-context-value.md): Read a value from the current OpenTelemetry context
+- [get_current_span_id()](https://docs.keywordsai.co/tracing-sdk/client/get-current-span-id.md): Return the active span ID as hex string
+- [get_current_trace_id()](https://docs.keywordsai.co/tracing-sdk/client/get-current-trace-id.md): Return the active trace ID as hex string
+- [get_span_buffer()](https://docs.keywordsai.co/tracing-sdk/client/get-span-buffer.md): Buffer spans in a context and export them manually
+- [get_tracer()](https://docs.keywordsai.co/tracing-sdk/client/get-tracer.md): Access the OpenTelemetry tracer for manual span creation
+- [is_recording()](https://docs.keywordsai.co/tracing-sdk/client/is-recording.md): Check if the current span is recording
+- [record_exception()](https://docs.keywordsai.co/tracing-sdk/client/record-exception.md): Record an exception on the current span and set error status
+- [set_context_value()](https://docs.keywordsai.co/tracing-sdk/client/set-context-value.md): Set a value in the current OpenTelemetry context
+- [update_current_span()](https://docs.keywordsai.co/tracing-sdk/client/update-current-span.md): Update name, status, attributes, and KeywordsAI params on the current span
+- [keywordsai_span_attributes()](https://docs.keywordsai.co/tracing-sdk/contexts/keywordsai-span-attributes.md): Context manager to set KeywordsAI-specific span attributes
+- [agent decorator](https://docs.keywordsai.co/tracing-sdk/decorators/agent.md): Wrap a function or class method as a traced agent
+- [task decorator](https://docs.keywordsai.co/tracing-sdk/decorators/task.md): Trace a single operation within a workflow
+- [tool decorator](https://docs.keywordsai.co/tracing-sdk/decorators/tool.md): Trace a tool execution within an agent or workflow
+- [workflow decorator](https://docs.keywordsai.co/tracing-sdk/decorators/workflow.md): Wrap a function or class method as a traced workflow
+- [Examples](https://docs.keywordsai.co/tracing-sdk/examples.md): Real examples from the keywordsai-tracing repo
+- [Instrumentation](https://docs.keywordsai.co/tracing-sdk/instrumentation/overview.md): Configure auto-instrumentation via Instruments and KeywordsAITelemetry
+- [Initialize KeywordsAITelemetry](https://docs.keywordsai.co/tracing-sdk/main/initialize.md): Set up the tracing client and environment configuration
+- [Keywords AI Tracing Overview](https://docs.keywordsai.co/tracing-sdk/overview.md): Observe and debug LLM workflows using the keywordsai-tracing Python SDK
+- [Quickstart](https://docs.keywordsai.co/tracing-sdk/quickstart.md): Get started with the keywordsai-tracing Python SDK

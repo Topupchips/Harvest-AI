@@ -8,6 +8,7 @@ import {
   getDownloadUrl,
 } from '../services/dataFactory';
 import { fetchWorlds } from '../services/api';
+import GatewayLog from './GatewayLog';
 
 const STATE = {
   READY: 'READY',
@@ -42,6 +43,12 @@ function statusText(event) {
       return `Processed ${data.filename} (${data.matches} match${data.matches !== 1 ? 'es' : ''})`;
     case 'detection_complete':
       return `Detection complete! ${data.total_matches} total match${data.total_matches !== 1 ? 'es' : ''}.`;
+    case 'judging':
+      return `Verifying ${data.num_detections} detection${data.num_detections !== 1 ? 's' : ''} with judge agent...`;
+    case 'judge_verdict':
+      return `Judge: ${data.verdict} on ${data.filename} (confidence ${(data.confidence || 0).toFixed(2)})`;
+    case 'judge_complete':
+      return `Verified ${data.filename}: ${data.verified_count}/${data.original_count} kept, ${data.corrected_count} corrected, ${data.removed_count} removed`;
     case 'error':
       return `Error: ${data.message}`;
     default:
@@ -68,6 +75,10 @@ export default function DataFactory({ onClose, worlds: propWorlds }) {
   const [detectionProgress, setDetectionProgress] = useState({ current: 0, total: 0 });
   const [totalMatches, setTotalMatches] = useState(0);
   const detectionConnRef = useRef(null);
+
+  // Gateway log state
+  const [gatewayCallLogs, setGatewayCallLogs] = useState([]);
+  const [judgeLogs, setJudgeLogs] = useState([]);
 
   // Supabase worlds state
   const [supabaseWorlds, setSupabaseWorlds] = useState([]);
@@ -146,6 +157,8 @@ export default function DataFactory({ onClose, worlds: propWorlds }) {
     setAnnotatedImages([]);
     setDetectionProgress({ current: 0, total: 0 });
     setTotalMatches(0);
+    setGatewayCallLogs([]);
+    setJudgeLogs([]);
   }, []);
 
   // Check if selected world has existing extracted images
@@ -196,6 +209,8 @@ export default function DataFactory({ onClose, worlds: propWorlds }) {
       setDetectionEvents([]);
       setAnnotatedImages([]);
       setTotalMatches(0);
+      setGatewayCallLogs([]);
+      setJudgeLogs([]);
 
       const { reference_id } = await uploadReference(referenceFile);
       setIsUploading(false);
@@ -205,6 +220,14 @@ export default function DataFactory({ onClose, worlds: propWorlds }) {
 
       detectionConnRef.current = startDetection(reference_id, {
         onEvent: (type, data) => {
+          // gateway_call events only go to the GatewayLog, not the status log
+          if (type === 'gateway_call') {
+            setGatewayCallLogs((prev) => [...prev, data]);
+            return;
+          }
+          if (type === 'judge_verdict') {
+            setJudgeLogs((prev) => [...prev, data]);
+          }
           setDetectionEvents((prev) => [...prev, { type, data, ts: Date.now() }]);
           if (type === 'detection_start') {
             setDetectionProgress((prev) => ({ ...prev, total: data.num_images }));
@@ -565,6 +588,12 @@ export default function DataFactory({ onClose, worlds: propWorlds }) {
                 ))}
               </div>
 
+              <GatewayLog
+                calls={gatewayCallLogs}
+                judgeLogs={judgeLogs}
+                isActive={true}
+              />
+
               <button
                 onClick={handleStopDetection}
                 className="mt-4 px-4 py-2 bg-neutral-900 border border-neutral-700 rounded-lg text-neutral-400 text-xs hover:text-white hover:border-neutral-500 transition-colors cursor-pointer"
@@ -588,6 +617,16 @@ export default function DataFactory({ onClose, worlds: propWorlds }) {
                   across {annotatedImages.length} image{annotatedImages.length !== 1 ? 's' : ''}
                 </p>
               </div>
+
+              {gatewayCallLogs.length > 0 && (
+                <div className="max-w-2xl mx-auto mb-6">
+                  <GatewayLog
+                    calls={gatewayCallLogs}
+                    judgeLogs={judgeLogs}
+                    isActive={false}
+                  />
+                </div>
+              )}
 
               <AnnotatedImageGrid images={annotatedImages} />
 

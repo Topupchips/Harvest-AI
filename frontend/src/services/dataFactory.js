@@ -15,6 +15,10 @@ const DETECTION_EVENT_TYPES = [
   'analyzing',
   'image_processed',
   'detection_complete',
+  'judging',
+  'judge_verdict',
+  'judge_complete',
+  'gateway_call',
   'error',
 ];
 
