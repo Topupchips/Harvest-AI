@@ -3,12 +3,14 @@ import MapView from './components/MapView';
 import LoadingOverlay from './components/LoadingOverlay';
 import LocationPopup from './components/LocationPopup';
 import DataFactory from './components/DataFactory';
+import ProductDescriptor from './components/ProductDescriptor';
 import { reverseGeocode, generateLocationDescription } from './services/geocoding';
 import { generateWorldMulti } from './services/api';
 
 const APP_STATE = {
   IDLE: 'IDLE',
   LOCATION_SELECTED: 'LOCATION_SELECTED',
+  ADDING_PRODUCT: 'ADDING_PRODUCT',
   GENERATING: 'GENERATING',
   DATA_FACTORY: 'DATA_FACTORY',
 };
@@ -21,6 +23,7 @@ export default function App() {
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [isLoadingLocation, setIsLoadingLocation] = useState(false);
   const [toast, setToast] = useState(null);
+  const [product, setProduct] = useState(null);
   const mapRef = useRef(null);
 
   /**
@@ -112,6 +115,7 @@ export default function App() {
     setIsLoadingLocation(true);
     setSelectedLocation({ lat, lng, placeName: null, address: null });
     setAppState(APP_STATE.LOCATION_SELECTED);
+    setProduct(null); // Reset product when selecting new location
 
     try {
       const { placeName, address } = await reverseGeocode(lat, lng);
@@ -139,15 +143,31 @@ export default function App() {
       const images = await captureMultipleViews(selectedLocation.lat, selectedLocation.lng);
 
       // Generate description for the location
-      const textPrompt = generateLocationDescription(
+      const locationPrompt = generateLocationDescription(
         selectedLocation.placeName,
         selectedLocation.address
       );
 
+      // Use location description as text prompt
+      const textPrompt = locationPrompt;
+      console.log('[App] Text prompt:', textPrompt);
+
+      // Prepare product options if product image is provided
+      const productOptions = product?.image ? {
+        image: product.image,
+        position: product.position,
+        scale: product.scale,
+      } : null;
+
+      if (productOptions) {
+        setStatusText('Compositing product into scene...');
+        console.log('[App] Product will be composited:', productOptions.position, productOptions.scale);
+      }
+
       setStatusText('Generating 3D world...');
       const result = await generateWorldMulti(images, textPrompt, (status) => {
         setStatusText(status);
-      });
+      }, productOptions);
 
       setGeneratedWorlds((prev) => [...prev, {
         ...result,
@@ -156,6 +176,7 @@ export default function App() {
       }]);
       setAppState(APP_STATE.IDLE);
       setSelectedLocation(null);
+      setProduct(null);
       setToast('World generated. Open Data Factory to view.');
       setTimeout(() => setToast(null), 4000);
     } catch (err) {
@@ -163,8 +184,9 @@ export default function App() {
       setError(err.message || 'Generation failed. Please try again.');
       setAppState(APP_STATE.IDLE);
       setSelectedLocation(null);
+      setProduct(null);
     }
-  }, [selectedLocation, captureMultipleViews, appState]);
+  }, [selectedLocation, product, captureMultipleViews, appState]);
 
   /**
    * Handle closing the location popup.
@@ -173,6 +195,36 @@ export default function App() {
     setAppState(APP_STATE.IDLE);
     setSelectedLocation(null);
     setIsLoadingLocation(false);
+    setProduct(null);
+  }, []);
+
+  /**
+   * Handle opening the product descriptor.
+   */
+  const handleAddProduct = useCallback(() => {
+    setAppState(APP_STATE.ADDING_PRODUCT);
+  }, []);
+
+  /**
+   * Handle product confirmation from ProductDescriptor.
+   */
+  const handleProductConfirm = useCallback((productData) => {
+    setProduct(productData);
+    setAppState(APP_STATE.LOCATION_SELECTED);
+  }, []);
+
+  /**
+   * Handle canceling product addition.
+   */
+  const handleProductCancel = useCallback(() => {
+    setAppState(APP_STATE.LOCATION_SELECTED);
+  }, []);
+
+  /**
+   * Handle removing the product.
+   */
+  const handleRemoveProduct = useCallback(() => {
+    setProduct(null);
   }, []);
 
   const handleOpenFactory = useCallback(() => {
@@ -194,8 +246,18 @@ export default function App() {
           lng={selectedLocation.lng}
           placeName={selectedLocation.placeName}
           isLoading={isLoadingLocation}
+          product={product}
           onGenerate={handleGenerate}
           onClose={handleCloseLocationPopup}
+          onAddProduct={handleAddProduct}
+          onRemoveProduct={handleRemoveProduct}
+        />
+      )}
+
+      {appState === APP_STATE.ADDING_PRODUCT && (
+        <ProductDescriptor
+          onConfirm={handleProductConfirm}
+          onCancel={handleProductCancel}
         />
       )}
 

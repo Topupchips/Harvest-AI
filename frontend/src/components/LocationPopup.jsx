@@ -1,4 +1,14 @@
-export default function LocationPopup({ lat, lng, placeName, isLoading, onGenerate, onClose }) {
+export default function LocationPopup({
+  lat,
+  lng,
+  placeName,
+  isLoading,
+  product,
+  onGenerate,
+  onClose,
+  onAddProduct,
+  onRemoveProduct,
+}) {
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm">
       <div className="bg-neutral-900 border border-neutral-700 rounded-2xl p-6 max-w-sm w-full mx-4 shadow-[0_0_30px_rgba(0,0,0,0.4)]">
@@ -52,6 +62,48 @@ export default function LocationPopup({ lat, lng, placeName, isLoading, onGenera
         <p className="text-neutral-400 text-sm mb-5">
           Generate a 3D world from satellite imagery of this location.
         </p>
+
+        {/* Product Section */}
+        {product?.image ? (
+          <div className="mb-4 p-3 bg-neutral-800/50 border border-neutral-700/50 rounded-xl">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <img
+                  src={URL.createObjectURL(product.image)}
+                  alt="Product"
+                  className="w-10 h-10 rounded-lg object-cover border border-neutral-600"
+                />
+                <div>
+                  <p className="text-white text-sm font-medium">Product Image</p>
+                  <p className="text-neutral-400 text-xs">
+                    {product.position} · {Math.round(product.scale * 100)}% size
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={onRemoveProduct}
+                className="text-neutral-500 hover:text-red-400 transition-colors cursor-pointer p-1"
+                aria-label="Remove product"
+              >
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        ) : (
+          <button
+            onClick={onAddProduct}
+            className="w-full mb-4 px-4 py-3 bg-neutral-800/50 border border-dashed border-neutral-600/50 rounded-xl text-neutral-400 text-sm hover:text-white hover:border-neutral-500 transition-all cursor-pointer flex items-center justify-center gap-2"
+          >
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <line x1="5" y1="12" x2="19" y2="12" />
+            </svg>
+            Add Product to Scene
+          </button>
+        )}
 
         <div className="flex gap-3">
           <button

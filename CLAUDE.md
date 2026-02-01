@@ -27,7 +27,10 @@ Both servers must run simultaneously. The frontend proxies `/api/*` requests to 
 ## Environment Setup
 
 Copy `.env.example` to `.env` in both directories:
-- `backend/.env`: `WORLDLABS_API_KEY` - World Labs API key
+- `backend/.env`:
+  - `WORLDLABS_API_KEY` - World Labs API key
+  - `OPENAI_API_KEY` - OpenAI API key (optional, for GPT-4o)
+  - `GEMINI_API_KEY` - Google Gemini API key (for AI-powered natural object placement)
 - `frontend/.env`: `VITE_GOOGLE_MAPS_API_KEY` - Google Maps API key (requires Maps JavaScript API, Static Maps API, and Geocoding API)
 
 ## Architecture
@@ -43,7 +46,18 @@ Copy `.env.example` to `.env` in both directories:
 ### Backend Endpoints
 - `POST /generate-world`: Single-image world generation
 - `POST /generate-world-multi`: Multi-image world generation with azimuth angles (primary flow)
+  - Supports optional `product_image`, `product_position`, `product_scale` for adding products to scenes
+- `POST /describe-image`: GPT-4o vision for product description
+- `POST /remove-background`: Remove background from product images
 - `GET /health`: Health check
+
+### Product Placement (AI-Powered)
+When a product image is provided to `/generate-world-multi`:
+1. **Gemini Compositing**: Sends both the background scene and product image to Gemini 3 Pro (gemini-3-pro-image-preview)
+2. **Natural Placement**: Gemini generates a new image with the product naturally placed in the scene with proper lighting, shadows, and perspective
+3. **Fallback**: If `GEMINI_API_KEY` is not set, uses simple rembg background removal + compositing
+
+Debug images are saved to `backend/debug_images/` for inspection.
 
 ### Key Frontend Components
 - `App.jsx`: State machine (IDLE → LOCATION_SELECTED → GENERATING → VIEWING)

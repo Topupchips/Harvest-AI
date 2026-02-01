@@ -10,6 +10,7 @@ import httpx
 
 from services.worldlabs import WorldLabsClient
 from services.panorama import generate_perspective_views
+from services.supabase_client import upload_image_to_storage, update_world_extracted_images
 
 logger = logging.getLogger("geomarble.data_factory")
 
@@ -108,11 +109,27 @@ async def extract_views_from_world(
 
     yield {"event": "views_extracted", "data": {"num_views": len(views)}}
 
-    # Save each view
+    # Save each view locally and upload to Supabase Storage
     saved = []
+    extracted_images_for_db = []
+
     for idx, (view_image, yaw, pitch) in enumerate(views):
         filename = f"view_{idx:02d}_yaw{int(yaw)}_pitch{int(pitch)}.png"
-        view_image.save(output_dir / filename)
+
+        # Save locally
+        local_path = output_dir / filename
+        view_image.save(local_path)
+
+        # Upload to Supabase Storage
+        image_url = None
+        try:
+            with open(local_path, "rb") as f:
+                image_bytes = f.read()
+            logger.info(f"Attempting to upload {filename} ({len(image_bytes)} bytes) to Supabase Storage...")
+            image_url = await upload_image_to_storage(image_bytes, world_id, filename)
+            logger.info(f"Successfully uploaded {filename} to Supabase Storage: {image_url}")
+        except Exception as e:
+            logger.error(f"FAILED to upload {filename} to Supabase: {e}", exc_info=True)
 
         info = {
             "filename": filename,
@@ -122,6 +139,22 @@ async def extract_views_from_world(
             "total_images": len(views),
         }
         saved.append(info)
+
+        # Store image data for database
+        extracted_images_for_db.append({
+            "filename": filename,
+            "yaw": yaw,
+            "pitch": pitch,
+            "url": image_url,
+        })
+
         yield {"event": "image_saved", "data": info}
+
+    # Update the world record with extracted images
+    try:
+        await update_world_extracted_images(world_id, extracted_images_for_db)
+        logger.info(f"Saved {len(extracted_images_for_db)} extracted images to Supabase for world {world_id}")
+    except Exception as e:
+        logger.warning(f"Failed to update world with extracted images: {e}")
 
     yield {"event": "pipeline_complete", "data": {"total_saved": len(saved), "images": saved}}

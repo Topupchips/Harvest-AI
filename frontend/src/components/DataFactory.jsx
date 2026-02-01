@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import {
   startExtraction,
   getPreviewImageUrl,
@@ -7,11 +7,13 @@ import {
   getAnnotatedImageUrl,
   getDownloadUrl,
 } from '../services/dataFactory';
+import { fetchWorlds } from '../services/api';
 
 const STATE = {
   READY: 'READY',
   RUNNING: 'RUNNING',
   COMPLETE: 'COMPLETE',
+  VIEWING_EXISTING: 'VIEWING_EXISTING', // When images already exist in Supabase
   DETECTING: 'DETECTING',
   DETECTION_COMPLETE: 'DETECTION_COMPLETE',
 };
@@ -33,11 +35,9 @@ function statusText(event) {
     case 'pipeline_complete':
       return `Done! ${data.total_saved} images saved.`;
     case 'detection_start':
-      return `Starting detection on ${data.num_images} images...`;
-    case 'candidates_found':
-      return `Found ${data.count} candidate(s) in ${data.filename}`;
-    case 'match_verified':
-      return `Verified match in ${data.filename}`;
+      return `Starting GPT Vision detection on ${data.num_images} images...`;
+    case 'analyzing':
+      return `Analyzing ${data.filename} with GPT Vision...`;
     case 'image_processed':
       return `Processed ${data.filename} (${data.matches} match${data.matches !== 1 ? 'es' : ''})`;
     case 'detection_complete':
@@ -49,7 +49,7 @@ function statusText(event) {
   }
 }
 
-export default function DataFactory({ onClose, worlds }) {
+export default function DataFactory({ onClose, worlds: propWorlds }) {
   const [selectedWorld, setSelectedWorld] = useState(null);
   const [state, setState] = useState(STATE.READY);
   const [numViews, setNumViews] = useState(10);
@@ -62,13 +62,42 @@ export default function DataFactory({ onClose, worlds }) {
   // Detection state
   const [referenceFile, setReferenceFile] = useState(null);
   const [referencePreview, setReferencePreview] = useState(null);
-  const [objectClass, setObjectClass] = useState('car');
   const [isUploading, setIsUploading] = useState(false);
   const [detectionEvents, setDetectionEvents] = useState([]);
   const [annotatedImages, setAnnotatedImages] = useState([]);
   const [detectionProgress, setDetectionProgress] = useState({ current: 0, total: 0 });
   const [totalMatches, setTotalMatches] = useState(0);
   const detectionConnRef = useRef(null);
+
+  // Supabase worlds state
+  const [supabaseWorlds, setSupabaseWorlds] = useState([]);
+  const [isLoadingWorlds, setIsLoadingWorlds] = useState(true);
+
+  // Fetch worlds from Supabase on mount
+  useEffect(() => {
+    async function loadWorlds() {
+      try {
+        const worlds = await fetchWorlds();
+        setSupabaseWorlds(worlds);
+      } catch (err) {
+        console.error('Failed to fetch worlds from Supabase:', err);
+      } finally {
+        setIsLoadingWorlds(false);
+      }
+    }
+    loadWorlds();
+  }, []);
+
+  // Merge prop worlds with Supabase worlds (avoid duplicates by world_id)
+  const worlds = [...(propWorlds || [])];
+  supabaseWorlds.forEach((sw) => {
+    if (!worlds.some((w) => w.world_id === sw.world_id)) {
+      worlds.push({
+        ...sw,
+        placeName: sw.place_name || sw.text_prompt || 'Supabase World',
+      });
+    }
+  });
 
   const handleExtract = useCallback((world) => {
     setState(STATE.RUNNING);
@@ -113,12 +142,43 @@ export default function DataFactory({ onClose, worlds }) {
     setError(null);
     setReferenceFile(null);
     setReferencePreview(null);
-    setObjectClass('car');
     setDetectionEvents([]);
     setAnnotatedImages([]);
     setDetectionProgress({ current: 0, total: 0 });
     setTotalMatches(0);
   }, []);
+
+  // Check if selected world has existing extracted images
+  const hasExistingImages = selectedWorld?.extracted_images?.length > 0;
+  const existingImages = selectedWorld?.extracted_images || [];
+
+  // Handle selecting a world - auto-show existing images if available
+  const handleSelectWorld = useCallback((world) => {
+    if (state !== STATE.READY) return;
+    setSelectedWorld(world);
+
+    // If world has existing extracted images, show them immediately
+    if (world.extracted_images?.length > 0) {
+      // Convert existing images to the format used by savedImages
+      const images = world.extracted_images.map((img, idx) => ({
+        filename: img.filename,
+        yaw: img.yaw,
+        pitch: img.pitch,
+        url: img.url, // Supabase Storage URL
+        image_index: idx + 1,
+        total_images: world.extracted_images.length,
+      }));
+      setSavedImages(images);
+      setState(STATE.VIEWING_EXISTING);
+    }
+  }, [state]);
+
+  // Handle re-extraction for worlds that already have images
+  const handleReExtract = useCallback(() => {
+    if (!selectedWorld) return;
+    setState(STATE.READY);
+    setSavedImages([]);
+  }, [selectedWorld]);
 
   const handleReferenceSelect = useCallback((e) => {
     const file = e.target.files?.[0];
@@ -128,7 +188,7 @@ export default function DataFactory({ onClose, worlds }) {
   }, []);
 
   const handleRunDetection = useCallback(async () => {
-    if (!referenceFile || !objectClass) return;
+    if (!referenceFile) return;
 
     try {
       setIsUploading(true);
@@ -143,7 +203,7 @@ export default function DataFactory({ onClose, worlds }) {
       setState(STATE.DETECTING);
       setDetectionProgress({ current: 0, total: savedImages.length });
 
-      detectionConnRef.current = startDetection(reference_id, objectClass, {
+      detectionConnRef.current = startDetection(reference_id, {
         onEvent: (type, data) => {
           setDetectionEvents((prev) => [...prev, { type, data, ts: Date.now() }]);
           if (type === 'detection_start') {
@@ -165,7 +225,7 @@ export default function DataFactory({ onClose, worlds }) {
       setIsUploading(false);
       setError(err.message || 'Failed to start detection');
     }
-  }, [referenceFile, objectClass, savedImages.length]);
+  }, [referenceFile, savedImages.length]);
 
   const handleStopDetection = useCallback(() => {
     detectionConnRef.current?.close();
@@ -205,7 +265,11 @@ export default function DataFactory({ onClose, worlds }) {
           </div>
 
           <div className="flex-1 overflow-y-auto">
-            {!hasWorlds ? (
+            {isLoadingWorlds ? (
+              <div className="p-4 text-center">
+                <p className="text-neutral-500 text-xs">Loading worlds...</p>
+              </div>
+            ) : !hasWorlds ? (
               <div className="p-4 text-center">
                 <p className="text-neutral-600 text-xs">No worlds yet.</p>
                 <p className="text-neutral-700 text-[10px] mt-1">Generate a world from the map first.</p>
@@ -213,17 +277,25 @@ export default function DataFactory({ onClose, worlds }) {
             ) : (
               worlds.map((world, i) => {
                 const isSelected = selectedWorld === world;
+                const hasImages = world.extracted_images?.length > 0;
                 return (
                   <div
                     key={world.world_id || i}
                     className={`px-4 py-3 border-b border-neutral-900 cursor-pointer transition-colors ${
                       isSelected ? 'bg-white/5 border-l-2 border-l-white' : 'hover:bg-white/5'
                     }`}
-                    onClick={() => { if (state === STATE.READY) setSelectedWorld(world); }}
+                    onClick={() => handleSelectWorld(world)}
                   >
-                    <p className="text-white text-sm font-medium truncate">
-                      {world.placeName || 'World'}
-                    </p>
+                    <div className="flex items-center justify-between">
+                      <p className="text-white text-sm font-medium truncate">
+                        {world.placeName || world.place_name || 'World'}
+                      </p>
+                      {hasImages && (
+                        <span className="ml-2 px-1.5 py-0.5 bg-green-900/50 text-green-400 text-[9px] rounded font-medium">
+                          {world.extracted_images.length} imgs
+                        </span>
+                      )}
+                    </div>
                     {world.viewer_url && (
                       <a
                         href={world.viewer_url}
@@ -271,12 +343,12 @@ export default function DataFactory({ onClose, worlds }) {
             </div>
           )}
 
-          {/* READY — world selected */}
+          {/* READY — world selected, no existing images */}
           {state === STATE.READY && selectedWorld && (
             <div className="max-w-md mx-auto mt-12 text-center">
               <div className="bg-neutral-900 rounded-xl p-4 border border-neutral-800 mb-6 text-left">
                 <p className="text-neutral-500 text-xs mb-1">Selected World</p>
-                <p className="text-white text-sm font-medium">{selectedWorld.placeName || 'World'}</p>
+                <p className="text-white text-sm font-medium">{selectedWorld.placeName || selectedWorld.place_name || 'World'}</p>
                 {selectedWorld.viewer_url && (
                   <a
                     href={selectedWorld.viewer_url}
@@ -295,6 +367,75 @@ export default function DataFactory({ onClose, worlds }) {
                 Extract {numViews} Photos
               </button>
             </div>
+          )}
+
+          {/* VIEWING_EXISTING — world has existing extracted images */}
+          {state === STATE.VIEWING_EXISTING && selectedWorld && (
+            <>
+              <div className="text-center mb-6">
+                <p className="text-white text-lg font-medium">{savedImages.length} photos available</p>
+                <p className="text-neutral-500 text-sm mt-1">Previously extracted from this world</p>
+              </div>
+              <ExistingImageGrid images={savedImages} />
+
+              {/* Detection section */}
+              {savedImages.length > 0 && (
+                <div className="max-w-lg mx-auto mt-10 bg-neutral-900 rounded-xl p-6 border border-neutral-800">
+                  <h3 className="text-white text-sm font-semibold mb-1">GPT Vision Object Detection</h3>
+                  <p className="text-neutral-500 text-xs mb-4">
+                    Upload a reference image of the object you want to find. GPT-4o Vision will locate matching objects in each extracted view.
+                  </p>
+
+                  <label className="block mb-4">
+                    <span className="text-neutral-500 text-[10px] uppercase tracking-wider">Reference Image</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleReferenceSelect}
+                      className="mt-1 block w-full text-sm text-neutral-400
+                        file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0
+                        file:text-sm file:font-medium file:bg-white file:text-black
+                        file:cursor-pointer hover:file:bg-neutral-200"
+                    />
+                  </label>
+
+                  {referencePreview && (
+                    <div className="mb-4">
+                      <img
+                        src={referencePreview}
+                        alt="Reference"
+                        className="w-24 h-24 object-cover rounded-lg border border-neutral-700"
+                      />
+                    </div>
+                  )}
+
+                  <button
+                    onClick={handleRunDetection}
+                    disabled={!referenceFile || isUploading}
+                    className="w-full px-6 py-3 bg-white text-black rounded-xl font-medium
+                      hover:bg-neutral-200 transition-all cursor-pointer
+                      disabled:opacity-30 disabled:cursor-not-allowed"
+                  >
+                    {isUploading ? 'Uploading reference...' : 'Find Objects with GPT Vision'}
+                  </button>
+                </div>
+              )}
+
+              <div className="flex justify-center gap-4 mt-8">
+                <button
+                  onClick={handleReExtract}
+                  className="px-6 py-2.5 bg-neutral-900 border border-neutral-700 rounded-full text-neutral-300 text-sm font-medium hover:text-white hover:border-neutral-500 transition-all cursor-pointer"
+                >
+                  Re-extract Photos
+                </button>
+                <button
+                  onClick={handleBack}
+                  className="px-6 py-2.5 bg-white text-black rounded-full text-sm font-medium hover:bg-neutral-200 transition-all cursor-pointer"
+                >
+                  Back to Worlds
+                </button>
+              </div>
+            </>
           )}
 
           {/* RUNNING — extracting views */}
@@ -350,12 +491,12 @@ export default function DataFactory({ onClose, worlds }) {
               {/* Detection section */}
               {savedImages.length > 0 && (
                 <div className="max-w-lg mx-auto mt-10 bg-neutral-900 rounded-xl p-6 border border-neutral-800">
-                  <h3 className="text-white text-sm font-semibold mb-1">Object Detection</h3>
+                  <h3 className="text-white text-sm font-semibold mb-1">GPT Vision Object Detection</h3>
                   <p className="text-neutral-500 text-xs mb-4">
-                    Upload a reference image and detect matching objects in the extracted views.
+                    Upload a reference image of the object you want to find. GPT-4o Vision will locate matching objects in each extracted view.
                   </p>
 
-                  <label className="block mb-3">
+                  <label className="block mb-4">
                     <span className="text-neutral-500 text-[10px] uppercase tracking-wider">Reference Image</span>
                     <input
                       type="file"
@@ -369,35 +510,23 @@ export default function DataFactory({ onClose, worlds }) {
                   </label>
 
                   {referencePreview && (
-                    <div className="mb-3">
+                    <div className="mb-4">
                       <img
                         src={referencePreview}
                         alt="Reference"
-                        className="w-20 h-20 object-cover rounded-lg border border-neutral-700"
+                        className="w-24 h-24 object-cover rounded-lg border border-neutral-700"
                       />
                     </div>
                   )}
 
-                  <label className="block mb-4">
-                    <span className="text-neutral-500 text-[10px] uppercase tracking-wider">Object Class (YOLO)</span>
-                    <input
-                      type="text"
-                      value={objectClass}
-                      onChange={(e) => setObjectClass(e.target.value)}
-                      placeholder="e.g. car, person, bottle"
-                      className="mt-1 block w-full px-3 py-2 bg-black border border-neutral-700 rounded-lg
-                        text-white text-sm placeholder-neutral-600 focus:outline-none focus:border-neutral-500"
-                    />
-                  </label>
-
                   <button
                     onClick={handleRunDetection}
-                    disabled={!referenceFile || !objectClass || isUploading}
+                    disabled={!referenceFile || isUploading}
                     className="w-full px-6 py-3 bg-white text-black rounded-xl font-medium
                       hover:bg-neutral-200 transition-all cursor-pointer
                       disabled:opacity-30 disabled:cursor-not-allowed"
                   >
-                    {isUploading ? 'Uploading reference...' : 'Run Detection'}
+                    {isUploading ? 'Uploading reference...' : 'Find Objects with GPT Vision'}
                   </button>
                 </div>
               )}
@@ -532,6 +661,30 @@ function AnnotatedImageGrid({ images }) {
               {img.matches}
             </div>
           )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// Grid for existing images loaded from Supabase Storage (uses direct URLs)
+function ExistingImageGrid({ images }) {
+  return (
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 max-w-6xl mx-auto">
+      {images.map((img, i) => (
+        <div
+          key={i}
+          className="relative group bg-neutral-900 rounded-xl overflow-hidden border border-neutral-800 hover:border-neutral-600 transition-colors"
+        >
+          <img
+            src={img.url}
+            alt={`yaw=${img.yaw} pitch=${img.pitch}`}
+            className="w-full aspect-square object-cover"
+            loading="lazy"
+          />
+          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-2 opacity-0 group-hover:opacity-100 transition-opacity">
+            <p className="text-neutral-400 text-[10px]">yaw: {img.yaw} | pitch: {img.pitch}</p>
+          </div>
         </div>
       ))}
     </div>

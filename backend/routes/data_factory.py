@@ -13,7 +13,7 @@ from fastapi.responses import FileResponse, StreamingResponse
 from sse_starlette.sse import EventSourceResponse
 
 from services.data_factory import extract_views_from_world
-from services.detector import save_reference_image, run_detection
+from services.vision_detector import save_reference_image, run_vision_detection
 
 logger = logging.getLogger("geomarble.routes.data_factory")
 
@@ -98,16 +98,16 @@ async def upload_reference(image: UploadFile = File(...)):
 @router.get("/detect")
 async def detect_objects(
     reference_id: str = Query(...),
-    object_class: str = Query(default="car"),
 ):
-    """Run object detection on extracted images. Returns SSE stream."""
+    """
+    Run GPT Vision object detection on extracted images.
+    Uses the reference image to find matching objects in each scene.
+    Returns SSE stream with real-time progress.
+    """
 
     async def event_generator():
         try:
-            async for event in run_detection(
-                reference_id=reference_id,
-                object_class=object_class,
-            ):
+            async for event in run_vision_detection(reference_id=reference_id):
                 yield {
                     "event": event["event"],
                     "data": json.dumps(event["data"]),

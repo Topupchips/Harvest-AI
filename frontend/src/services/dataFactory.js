@@ -12,8 +12,7 @@ const EVENT_TYPES = [
 
 const DETECTION_EVENT_TYPES = [
   'detection_start',
-  'candidates_found',
-  'match_verified',
+  'analyzing',
   'image_processed',
   'detection_complete',
   'error',
@@ -92,19 +91,17 @@ export async function uploadReference(imageFile) {
 }
 
 /**
- * Connect to the detection SSE stream.
+ * Connect to the GPT Vision detection SSE stream.
  * @param {string} referenceId - ID from uploadReference
- * @param {string} objectClass - YOLO class name to detect
  * @param {object} callbacks
  * @param {function} callbacks.onEvent - (eventType, data) => void
  * @param {function} callbacks.onComplete - (data) => void
  * @param {function} callbacks.onError - (error) => void
  * @returns {{ close: () => void }}
  */
-export function startDetection(referenceId, objectClass, callbacks) {
+export function startDetection(referenceId, callbacks) {
   const params = new URLSearchParams({
     reference_id: referenceId,
-    object_class: objectClass,
   });
 
   const url = `${API_BASE}/data-factory/detect?${params.toString()}`;

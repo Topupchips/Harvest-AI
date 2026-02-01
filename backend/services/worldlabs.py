@@ -92,7 +92,7 @@ class WorldLabsClient:
         """
         body = {
             "display_name": "GeoMarble World",
-            "model": "Marble 0.1-mini",
+            "model": "Marble 0.1-plus",
             "permission": {
                 "public": True
             },
@@ -200,7 +200,7 @@ class WorldLabsClient:
 
         body = {
             "display_name": "GeoMarble Multi-Image World",
-            "model": "Marble 0.1-mini",
+            "model": "Marble 0.1-plus",
             "permission": {
                 "public": True
             },
