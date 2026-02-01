@@ -1,0 +1,280 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* AETHER Design System - Premium Monochrome Terminal Aesthetic */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap');
+
+@layer base {
+  :root {
+    /* Pure Monochrome Palette */
+    --background: 0 0% 2%;
+    --foreground: 0 0% 95%;
+
+    --card: 0 0% 4%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 0 0% 95%;
+    --primary-foreground: 0 0% 2%;
+
+    --secondary: 0 0% 8%;
+    --secondary-foreground: 0 0% 95%;
+
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 50%;
+
+    --accent: 0 0% 18%;
+    --accent-foreground: 0 0% 95%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 0 0% 95%;
+
+    --radius: 0px;
+
+    /* Custom AETHER tokens */
+    --glow-color: 0 0% 100%;
+    --glow-soft: 0 0% 80%;
+    --void-color: 0 0% 0%;
+  }
+
+  .dark {
+    --background: 0 0% 2%;
+    --foreground: 0 0% 95%;
+    --card: 0 0% 4%;
+    --card-foreground: 0 0% 95%;
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 0 0% 95%;
+    --primary-foreground: 0 0% 2%;
+    --secondary: 0 0% 8%;
+    --secondary-foreground: 0 0% 95%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 50%;
+    --accent: 0 0% 18%;
+    --accent-foreground: 0 0% 95%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 0 0% 95%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: 'ss01' 1, 'ss02' 1, 'cv01' 1;
+    letter-spacing: 0.01em;
+  }
+}
+
+/* Terminal Flicker Animation */
+@keyframes flicker {
+  0%, 100% { 
+    opacity: 1; 
+  }
+  92% { 
+    opacity: 1; 
+  }
+  93% { 
+    opacity: 0.8; 
+  }
+  94% { 
+    opacity: 1; 
+  }
+  96% { 
+    opacity: 0.9; 
+  }
+  97% { 
+    opacity: 1; 
+  }
+}
+
+@keyframes subtle-flicker {
+  0%, 100% { 
+    opacity: 1; 
+  }
+  50% { 
+    opacity: 0.98; 
+  }
+  75% { 
+    opacity: 0.96; 
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 2px hsl(var(--glow-color) / 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 20px hsl(var(--glow-color) / 0.6)) 
+            drop-shadow(0 0 40px hsl(var(--glow-color) / 0.3));
+  }
+}
+
+@keyframes scan-line {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+@keyframes hyper-zoom {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(15);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(50);
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer utilities {
+  .flicker {
+    animation: flicker 4s infinite;
+  }
+
+  .subtle-flicker {
+    animation: subtle-flicker 3s infinite;
+  }
+
+  .pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  .hyper-zoom {
+    animation: hyper-zoom 1.5s ease-in forwards;
+  }
+
+  .fade-in-up {
+    animation: fade-in-up 0.8s ease-out forwards;
+  }
+
+  .text-glow {
+    text-shadow: 0 0 10px hsl(var(--glow-color) / 0.5),
+                 0 0 20px hsl(var(--glow-color) / 0.3),
+                 0 0 40px hsl(var(--glow-color) / 0.1);
+  }
+
+  .text-glow-strong {
+    text-shadow: 0 0 10px hsl(var(--glow-color) / 0.8),
+                 0 0 30px hsl(var(--glow-color) / 0.5),
+                 0 0 60px hsl(var(--glow-color) / 0.3);
+  }
+
+  .border-glow {
+    box-shadow: 0 0 10px hsl(var(--glow-color) / 0.3),
+                0 0 20px hsl(var(--glow-color) / 0.1),
+                inset 0 0 10px hsl(var(--glow-color) / 0.05);
+  }
+
+  .border-glow-strong {
+    box-shadow: 0 0 20px hsl(var(--glow-color) / 0.5),
+                0 0 40px hsl(var(--glow-color) / 0.3),
+                0 0 60px hsl(var(--glow-color) / 0.2),
+                inset 0 0 15px hsl(var(--glow-color) / 0.1);
+  }
+
+  /* Scan line overlay */
+  .scan-lines::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      hsl(var(--glow-color) / 0.02) 2px,
+      hsl(var(--glow-color) / 0.02) 4px
+    );
+    z-index: 9999;
+  }
+
+  /* Terminal cursor blink */
+  .cursor-blink::after {
+    content: '_';
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+
+  /* Monospace terminal text */
+  .terminal-text {
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.08em;
+    font-weight: 400;
+  }
+
+  .display-text {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+  }
+
+  .ultra-wide {
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+  }
+
+  /* Gradient mesh background */
+  .mesh-gradient {
+    background: 
+      radial-gradient(ellipse 80% 50% at 50% 50%, hsl(var(--muted) / 0.3) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 80% at 80% 20%, hsl(var(--muted) / 0.15) 0%, transparent 50%),
+      radial-gradient(ellipse 50% 60% at 20% 80%, hsl(var(--muted) / 0.1) 0%, transparent 50%);
+  }
+
+  /* Grid overlay */
+  .grid-overlay::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: 
+      linear-gradient(hsl(var(--foreground) / 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--foreground) / 0.02) 1px, transparent 1px);
+    background-size: 100px 100px;
+    pointer-events: none;
+    z-index: 1;
+  }
+}

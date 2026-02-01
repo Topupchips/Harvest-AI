@@ -4,10 +4,12 @@ import LoadingOverlay from './components/LoadingOverlay';
 import LocationPopup from './components/LocationPopup';
 import DataFactory from './components/DataFactory';
 import ProductDescriptor from './components/ProductDescriptor';
+import LandingPage from './components/landing/LandingPage';
 import { reverseGeocode, generateLocationDescription } from './services/geocoding';
 import { generateWorldMulti } from './services/api';
 
 const APP_STATE = {
+  LANDING: 'LANDING',
   IDLE: 'IDLE',
   LOCATION_SELECTED: 'LOCATION_SELECTED',
   ADDING_PRODUCT: 'ADDING_PRODUCT',
@@ -16,7 +18,7 @@ const APP_STATE = {
 };
 
 export default function App() {
-  const [appState, setAppState] = useState(APP_STATE.IDLE);
+  const [appState, setAppState] = useState(APP_STATE.LANDING);
   const [generatedWorlds, setGeneratedWorlds] = useState([]);
   const [statusText, setStatusText] = useState('');
   const [error, setError] = useState(null);
@@ -235,6 +237,14 @@ export default function App() {
   const handleCloseFactory = useCallback(() => {
     setAppState(APP_STATE.IDLE);
   }, []);
+
+  const handleEnterFromLanding = useCallback(() => {
+    setAppState(APP_STATE.IDLE);
+  }, []);
+
+  if (appState === APP_STATE.LANDING) {
+    return <LandingPage onEnter={handleEnterFromLanding} />;
+  }
 
   return (
     <div className="relative h-full w-full">
