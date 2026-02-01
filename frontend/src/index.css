@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -19,4 +20,37 @@ body,
   overflow: hidden;
   background-color: var(--color-dark-900);
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* AETHER Landing Page – custom utility classes */
+
+.terminal-text {
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.08em;
+  font-weight: 400;
+}
+
+.display-text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+}
+
+.landing-mesh-gradient {
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 50%, hsl(0 0% 12% / 0.3) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 80% at 80% 20%, hsl(0 0% 12% / 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 60% at 20% 80%, hsl(0 0% 12% / 0.1) 0%, transparent 50%);
+}
+
+.landing-grid-overlay::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(hsl(0 0% 95% / 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(0 0% 95% / 0.02) 1px, transparent 1px);
+  background-size: 100px 100px;
+  pointer-events: none;
+  z-index: 1;
 }
