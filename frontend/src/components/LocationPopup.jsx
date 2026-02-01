@@ -1,13 +1,13 @@
 export default function LocationPopup({ lat, lng, placeName, isLoading, onGenerate, onClose }) {
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-dark-900/60 backdrop-blur-sm">
-      <div className="bg-dark-800 border border-neon/30 rounded-2xl p-6 max-w-sm w-full mx-4 shadow-[0_0_30px_rgba(0,212,255,0.1)]">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm">
+      <div className="bg-neutral-900 border border-neutral-700 rounded-2xl p-6 max-w-sm w-full mx-4 shadow-[0_0_30px_rgba(0,0,0,0.4)]">
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-neon/10 border border-neon/30 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-full bg-white/10 border border-neutral-600 flex items-center justify-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="w-5 h-5 text-neon"
+                className="w-5 h-5 text-white"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -23,14 +23,14 @@ export default function LocationPopup({ lat, lng, placeName, isLoading, onGenera
               <h3 className="text-white font-semibold text-base">
                 {isLoading ? 'Loading location...' : (placeName || 'Selected Location')}
               </h3>
-              <p className="text-gray-400 text-xs mt-0.5">
+              <p className="text-neutral-500 text-xs mt-0.5">
                 {lat.toFixed(6)}, {lng.toFixed(6)}
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-300 transition-colors cursor-pointer p-1"
+            className="text-neutral-500 hover:text-white transition-colors cursor-pointer p-1"
             aria-label="Close"
           >
             <svg
@@ -49,7 +49,7 @@ export default function LocationPopup({ lat, lng, placeName, isLoading, onGenera
           </button>
         </div>
 
-        <p className="text-gray-400 text-sm mb-5">
+        <p className="text-neutral-400 text-sm mb-5">
           Generate a 3D world from satellite imagery of this location.
         </p>
 
@@ -58,10 +58,10 @@ export default function LocationPopup({ lat, lng, placeName, isLoading, onGenera
             onClick={onClose}
             className="
               flex-1 px-4 py-2.5
-              bg-dark-700 border border-gray-600/50
+              bg-neutral-800 border border-neutral-700
               rounded-xl
-              text-gray-300 text-sm font-medium
-              hover:text-white hover:border-gray-400
+              text-neutral-300 text-sm font-medium
+              hover:text-white hover:border-neutral-500
               transition-all duration-200
               cursor-pointer
             "
@@ -73,10 +73,10 @@ export default function LocationPopup({ lat, lng, placeName, isLoading, onGenera
             disabled={isLoading}
             className="
               flex-1 px-4 py-2.5
-              bg-neon/10 border border-neon/40
+              bg-white border border-white
               rounded-xl
-              text-neon text-sm font-medium
-              hover:bg-neon/20 hover:border-neon/60
+              text-black text-sm font-medium
+              hover:bg-neutral-200
               disabled:opacity-50 disabled:cursor-not-allowed
               transition-all duration-200
               cursor-pointer

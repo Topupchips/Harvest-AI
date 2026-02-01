@@ -46,12 +46,7 @@ async def generate_world(image: UploadFile = File(...)):
         world = await client.poll_operation(operation_id)
         logger.info(f"Step 3 done: world keys={list(world.keys()) if isinstance(world, dict) else type(world)}")
 
-        return {
-            "viewer_url": world.get("world_marble_url"),
-            "world_id": world.get("id"),
-            "thumbnail_url": world.get("assets", {}).get("thumbnail_url"),
-            "splat_urls": world.get("assets", {}).get("splats", {}).get("spz_urls"),
-        }
+        return _extract_world_response(world)
 
     except TimeoutError:
         raise HTTPException(status_code=504, detail="World generation timed out")
@@ -146,12 +141,7 @@ async def generate_world_multi(
         world = await client.poll_operation(operation_id)
         logger.info(f"Step 2 done: world keys={list(world.keys()) if isinstance(world, dict) else type(world)}")
 
-        return {
-            "viewer_url": world.get("world_marble_url"),
-            "world_id": world.get("id"),
-            "thumbnail_url": world.get("assets", {}).get("thumbnail_url"),
-            "splat_urls": world.get("assets", {}).get("splats", {}).get("spz_urls"),
-        }
+        return _extract_world_response(world)
 
     except TimeoutError:
         raise HTTPException(status_code=504, detail="World generation timed out")
@@ -161,3 +151,16 @@ async def generate_world_multi(
         raise HTTPException(
             status_code=502, detail=f"World Labs API error: {str(e)}"
         )
+
+
+def _extract_world_response(world: dict) -> dict:
+    """Extract relevant fields from the World Labs response, including full assets."""
+    assets = world.get("assets", {})
+    logger.info(f"Full world assets: {json.dumps(assets, default=str)[:2000]}")
+    return {
+        "viewer_url": world.get("world_marble_url"),
+        "world_id": world.get("id"),
+        "thumbnail_url": assets.get("thumbnail_url"),
+        "splat_urls": assets.get("splats", {}).get("spz_urls"),
+        "world_assets": assets,
+    }

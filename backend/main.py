@@ -5,6 +5,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from routes.generate import router as generate_router
+from routes.data_factory import router as data_factory_router
 
 load_dotenv()
 
@@ -19,6 +20,7 @@ app.add_middleware(
 )
 
 app.include_router(generate_router)
+app.include_router(data_factory_router)
 
 
 @app.get("/health")

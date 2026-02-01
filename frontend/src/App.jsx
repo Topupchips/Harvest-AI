@@ -1,8 +1,8 @@
 import { useState, useCallback, useRef } from 'react';
 import MapView from './components/MapView';
 import LoadingOverlay from './components/LoadingOverlay';
-import WorldViewer from './components/WorldViewer';
 import LocationPopup from './components/LocationPopup';
+import DataFactory from './components/DataFactory';
 import { reverseGeocode, generateLocationDescription } from './services/geocoding';
 import { generateWorldMulti } from './services/api';
 
@@ -10,16 +10,17 @@ const APP_STATE = {
   IDLE: 'IDLE',
   LOCATION_SELECTED: 'LOCATION_SELECTED',
   GENERATING: 'GENERATING',
-  VIEWING: 'VIEWING',
+  DATA_FACTORY: 'DATA_FACTORY',
 };
 
 export default function App() {
   const [appState, setAppState] = useState(APP_STATE.IDLE);
-  const [viewerUrl, setViewerUrl] = useState(null);
+  const [generatedWorlds, setGeneratedWorlds] = useState([]);
   const [statusText, setStatusText] = useState('');
   const [error, setError] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [isLoadingLocation, setIsLoadingLocation] = useState(false);
+  const [toast, setToast] = useState(null);
   const mapRef = useRef(null);
 
   /**
@@ -127,7 +128,7 @@ export default function App() {
    * Handle generate button click from LocationPopup - uses multi-image flow.
    */
   const handleGenerate = useCallback(async () => {
-    if (!selectedLocation) return;
+    if (!selectedLocation || appState !== APP_STATE.LOCATION_SELECTED) return;
 
     try {
       setAppState(APP_STATE.GENERATING);
@@ -148,16 +149,22 @@ export default function App() {
         setStatusText(status);
       });
 
-      setViewerUrl(result.viewer_url);
-      setAppState(APP_STATE.VIEWING);
+      setGeneratedWorlds((prev) => [...prev, {
+        ...result,
+        placeName: selectedLocation.placeName || 'Unknown',
+        createdAt: Date.now(),
+      }]);
+      setAppState(APP_STATE.IDLE);
       setSelectedLocation(null);
+      setToast('World generated. Open Data Factory to view.');
+      setTimeout(() => setToast(null), 4000);
     } catch (err) {
       console.error('Generation failed:', err);
       setError(err.message || 'Generation failed. Please try again.');
       setAppState(APP_STATE.IDLE);
       setSelectedLocation(null);
     }
-  }, [selectedLocation, captureMultipleViews]);
+  }, [selectedLocation, captureMultipleViews, appState]);
 
   /**
    * Handle closing the location popup.
@@ -168,12 +175,13 @@ export default function App() {
     setIsLoadingLocation(false);
   }, []);
 
-  /**
-   * Handle closing the world viewer.
-   */
-  const handleCloseViewer = useCallback(() => {
+  const handleOpenFactory = useCallback(() => {
+    setAppState(APP_STATE.DATA_FACTORY);
+    setSelectedLocation(null);
+  }, []);
+
+  const handleCloseFactory = useCallback(() => {
     setAppState(APP_STATE.IDLE);
-    setViewerUrl(null);
   }, []);
 
   return (
@@ -202,8 +210,23 @@ export default function App() {
         />
       )}
 
-      {appState === APP_STATE.VIEWING && viewerUrl && (
-        <WorldViewer url={viewerUrl} onClose={handleCloseViewer} />
+      {appState === APP_STATE.IDLE && (
+        <button
+          onClick={handleOpenFactory}
+          className="fixed top-8 left-8 z-50 px-5 py-2.5 bg-black/80 backdrop-blur-md border border-neutral-700 rounded-full text-white text-sm font-medium hover:bg-black hover:border-neutral-500 transition-all cursor-pointer"
+        >
+          Data Factory
+        </button>
+      )}
+
+      {appState === APP_STATE.DATA_FACTORY && (
+        <DataFactory onClose={handleCloseFactory} worlds={generatedWorlds} />
+      )}
+
+      {toast && (
+        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[300] px-5 py-3 bg-neutral-900 border border-neutral-700 rounded-full text-white text-sm font-medium shadow-lg">
+          {toast}
+        </div>
       )}
     </div>
   );
