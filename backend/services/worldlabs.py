@@ -92,7 +92,7 @@ class WorldLabsClient:
         """
         body = {
             "display_name": "GeoMarble World",
-            "model": "Marble 0.1-plus",
+            "model": "Marble 0.1-mini",
             "permission": {
                 "public": True
             },

@@ -1,11 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
 
 /**
- * GatewayLog - Collapsible panel showing real-time Keywords AI gateway
- * LLM call activity and judge agent interactions.
+ * GatewayLog - Collapsible panel showing real-time LLM call activity
+ * and judge agent interactions.
  *
  * Props:
- *   calls      - Array of gateway_call events: {call_type, model, prompt_id, latency_ms, tokens_in, tokens_out, status, error?}
+ *   calls      - Array of gateway_call events: {call_type, model, latency_ms, tokens_in, tokens_out, status, error?}
  *   judgeLogs   - Array of judge_verdict events: {detection_index, iteration, bbox, verdict, confidence, reasoning, corrected_bbox?}
  *   isActive    - Whether detection is currently running
  */
@@ -77,7 +77,7 @@ export default function GatewayLog({ calls = [], judgeLogs = [], isActive = fals
       >
         <div className="flex items-center gap-2">
           <span className="text-neutral-500 text-xs">{collapsed ? '▶' : '▼'}</span>
-          <span className="text-sm font-medium text-neutral-200">Agent Gateway Log</span>
+          <span className="text-sm font-medium text-neutral-200">Agent Log</span>
           {isActive && (
             <span className="inline-block w-2 h-2 rounded-full bg-green-400 animate-pulse" />
           )}
@@ -160,10 +160,6 @@ function CallEntry({ entry, formatLatency, formatTokens }) {
         </span>
 
         <span className="text-xs text-neutral-400 font-mono">{entry.model}</span>
-
-        {entry.prompt_id && (
-          <span className="text-xs text-neutral-600 font-mono">[{entry.prompt_id}]</span>
-        )}
 
         <span className="text-xs text-neutral-300 font-mono ml-auto">
           {formatLatency(entry.latency_ms)}

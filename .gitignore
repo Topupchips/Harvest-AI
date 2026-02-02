@@ -7,3 +7,5 @@ __pycache__/
 .venv/
 .DS_Store
 yolo11n.pt
+backend/data_preview/
+backend/debug_images/

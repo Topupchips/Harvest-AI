@@ -36,9 +36,9 @@ function statusText(event) {
     case 'pipeline_complete':
       return `Done! ${data.total_saved} images saved.`;
     case 'detection_start':
-      return `Starting GPT Vision detection on ${data.num_images} images...`;
+      return `Starting Grok Vision detection on ${data.num_images} images...`;
     case 'analyzing':
-      return `Analyzing ${data.filename} with GPT Vision...`;
+      return `Analyzing ${data.filename} with Grok Vision...`;
     case 'image_processed':
       return `Processed ${data.filename} (${data.matches} match${data.matches !== 1 ? 'es' : ''})`;
     case 'detection_complete':
@@ -404,9 +404,9 @@ export default function DataFactory({ onClose, worlds: propWorlds }) {
               {/* Detection section */}
               {savedImages.length > 0 && (
                 <div className="max-w-lg mx-auto mt-10 bg-neutral-900 rounded-xl p-6 border border-neutral-800">
-                  <h3 className="text-white text-sm font-semibold mb-1">GPT Vision Object Detection</h3>
+                  <h3 className="text-white text-sm font-semibold mb-1">Grok Vision Object Detection</h3>
                   <p className="text-neutral-500 text-xs mb-4">
-                    Upload a reference image of the object you want to find. GPT-4o Vision will locate matching objects in each extracted view.
+                    Upload a reference image of the object you want to find. Grok Vision will locate matching objects in each extracted view.
                   </p>
 
                   <label className="block mb-4">
@@ -439,7 +439,7 @@ export default function DataFactory({ onClose, worlds: propWorlds }) {
                       hover:bg-neutral-200 transition-all cursor-pointer
                       disabled:opacity-30 disabled:cursor-not-allowed"
                   >
-                    {isUploading ? 'Uploading reference...' : 'Find Objects with GPT Vision'}
+                    {isUploading ? 'Uploading reference...' : 'Find Objects with Grok Vision'}
                   </button>
                 </div>
               )}
@@ -514,9 +514,9 @@ export default function DataFactory({ onClose, worlds: propWorlds }) {
               {/* Detection section */}
               {savedImages.length > 0 && (
                 <div className="max-w-lg mx-auto mt-10 bg-neutral-900 rounded-xl p-6 border border-neutral-800">
-                  <h3 className="text-white text-sm font-semibold mb-1">GPT Vision Object Detection</h3>
+                  <h3 className="text-white text-sm font-semibold mb-1">Grok Vision Object Detection</h3>
                   <p className="text-neutral-500 text-xs mb-4">
-                    Upload a reference image of the object you want to find. GPT-4o Vision will locate matching objects in each extracted view.
+                    Upload a reference image of the object you want to find. Grok Vision will locate matching objects in each extracted view.
                   </p>
 
                   <label className="block mb-4">
@@ -549,7 +549,7 @@ export default function DataFactory({ onClose, worlds: propWorlds }) {
                       hover:bg-neutral-200 transition-all cursor-pointer
                       disabled:opacity-30 disabled:cursor-not-allowed"
                   >
-                    {isUploading ? 'Uploading reference...' : 'Find Objects with GPT Vision'}
+                    {isUploading ? 'Uploading reference...' : 'Find Objects with Grok Vision'}
                   </button>
                 </div>
               )}
