@@ -91,7 +91,7 @@ class WorldLabsClient:
         Returns the operation_id for polling.
         """
         body = {
-            "display_name": "GeoMarble World",
+            "display_name": "WorldScout World",
             "model": "Marble 0.1-mini",
             "permission": {
                 "public": True
@@ -199,7 +199,7 @@ class WorldLabsClient:
             })
 
         body = {
-            "display_name": "GeoMarble Multi-Image World",
+            "display_name": "WorldScout Multi-Image World",
             "model": "Marble 0.1-plus",
             "permission": {
                 "public": True

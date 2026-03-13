@@ -25,7 +25,7 @@ export default function HeroHeadline({ isZooming }) {
         animate={{ opacity: 1, y: 0, letterSpacing: '0.25em' }}
         transition={{ duration: 1.5, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
       >
-        HARVEST
+        WORLD
       </motion.h1>
 
       <motion.h1
@@ -34,7 +34,7 @@ export default function HeroHeadline({ isZooming }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.5, delay: 1, ease: [0.16, 1, 0.3, 1] }}
       >
-        REALITY
+        SCOUT
       </motion.h1>
 
       {/* Subtitle */}

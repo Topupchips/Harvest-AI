@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-GeoMarble is a web application that converts Google Maps locations into interactive 3D worlds using the World Labs API. Users click on a 3D map to select a location, which captures satellite imagery from 4 cardinal directions and generates an explorable 3D world.
+WorldScout is a web application that converts Google Maps locations into interactive 3D worlds using the World Labs API. Users click on a 3D map to select a location, which captures satellite imagery from 4 cardinal directions and generates an explorable 3D world.
 
 ## Development Commands
 

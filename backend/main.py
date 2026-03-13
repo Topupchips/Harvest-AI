@@ -13,7 +13,7 @@ from routes.data_factory import router as data_factory_router
 from routes.vision import router as vision_router
 from routes.worlds import router as worlds_router
 from services.supabase_client import reset_supabase_client
-app = FastAPI(title="GeoMarble Backend", version="0.1.0")
+app = FastAPI(title="WorldScout Backend", version="0.1.0")
 
 
 @app.on_event("startup")
